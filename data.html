@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Data — The Bend in the River</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    .data-section {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--sand-dark);
+    }
+    .data-section:last-of-type { border-bottom: none; }
+    .data-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--river-deep);
+      margin-bottom: 0.5rem;
+    }
+    .data-section .section-sub {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--stone);
+      margin-bottom: 1.75rem;
+      max-width: 640px;
+      line-height: 1.6;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1rem;
+      border-left: 3px solid var(--river-light);
+    }
+    .metric-card .m-label {
+      font-size: 0.75rem;
+      color: var(--stone);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .metric-card .m-value {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--river-deep);
+      line-height: 1.2;
+    }
+    .metric-card .m-sub {
+      font-size: 0.75rem;
+      color: var(--stone);
+      margin-top: 3px;
+    }
+    .metric-card.accent { border-left-color: var(--rust); }
+    .metric-card.warn { border-left-color: #8b6914; }
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .chart-label {
+      font-size: 0.8rem;
+      color: var(--stone);
+      margin-bottom: 8px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+      font-size: 0.75rem;
+      color: var(--stone);
+    }
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .legend-line {
+      width: 14px;
+      height: 3px;
+      display: inline-block;
+      flex-shrink: 0;
+      border-radius: 1px;
+    }
+    .pattern-box {
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1.1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-left: 3px solid var(--rust);
+    }
+    .pattern-box h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--river-deep);
+      margin-bottom: 0.5rem;
+    }
+    .pattern-box p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 8px;
+      margin: 1.5rem 0;
+    }
+    .event-card {
+      padding: 10px 12px;
+      border-radius: 0 4px 4px 0;
+      background: var(--sand);
+    }
+    .event-card .e-year {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--river-deep);
+      margin-bottom: 3px;
+    }
+    .event-card .e-desc {
+      font-size: 0.78rem;
+      color: var(--stone);
+      line-height: 1.5;
+    }
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .filter-btn {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--stone);
+      background: transparent;
+      color: var(--stone);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      transition: all 0.15s;
+    }
+    .filter-btn.active {
+      background: var(--river-deep);
+      color: var(--sand);
+      border-color: var(--river-deep);
+    }
+    .entity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .entity-card {
+      background: var(--white);
+      border-radius: 4px;
+      border: 1px solid var(--sand-dark);
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .entity-card .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .entity-card .card-name {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--river-deep);
+      line-height: 1.4;
+    }
+    .entity-card .card-since {
+      font-size: 0.72rem;
+      color: var(--stone);
+    }
+    .badge {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-extractor { background: #fde8e8; color: #8b1a1a; }
+    .badge-contributor { background: #e1f5ee; color: #085041; }
+    .badge-mixed { background: #faeeda; color: #633806; }
+    .ledger-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .ledger-head {
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ledger-head.gave { color: #085041; }
+    .ledger-head.took { color: #8b1a1a; }
+    .ledger-list {
+      margin: 0;
+      padding-left: 14px;
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+    .card-note {
+      font-size: 0.72rem;
+      color: var(--stone);
+      border-top: 1px solid var(--sand-dark);
+      padding-top: 8px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .sources {
+      font-size: 0.75rem;
+      color: var(--stone);
+      border: 1px solid var(--sand-dark);
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-top: 1.5rem;
+      line-height: 1.6;
+    }
+    .intro-statement {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--river-deep);
+      border-left: 3px solid var(--rust);
+      padding: 0.75rem 0 0.75rem 1.25rem;
+      margin-bottom: 2rem;
+      max-width: 680px;
+      line-height: 1.6;
+    }
+    @media (max-width: 600px) {
+      .chart-row { grid-template-columns: 1fr; }
+      .ledger-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="index.html" class="nav-home">The Bend in the River</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="today.html">The Town Today</a></li>
+        <li><a href="issues.html">Issues</a></li>
+        <li><a href="data.html" class="active">The Data</a></li>
+        <li><a href="resources.html">Resources</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+
+    <section class="page-hero">
+      <div class="container">
+        <h1>The Data</h1>
+        <p class="page-sub">What was promised. What happened. What the numbers actually say.</p>
+      </div>
+    </section>
+
+    <section class="prose-section">
+      <div class="container">
+
+        <p class="intro-statement">
+          Every major economic intervention in Scottsville's recent history arrived with a promise — jobs, growth, prosperity. The data below does not argue. It records.
+        </p>
+
+        <!-- CHART 1: POPULATION & INCOME TIMELINE -->
+        <div class="data-section">
+          <h2>Population &amp; income over time</h2>
+          <p class="section-sub">Scottsville's population and household income measured against key economic events — and against the county that hosts the plant that was supposed to lift the region.</p>
+
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="m-label">Scottsville population</div>
+              <div class="m-value">543</div>
+              <div class="m-sub">2024 estimate</div>
+            </div>
+            <div class="metric-card accent">
+              <div class="m-label">Peak population</div>
+              <div class="m-value">620</div>
+              <div class="m-sub">1990 — 13% higher than today</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Scottsville median income</div>
+              <div class="m-value">$46,563</div>
+              <div class="m-sub">2023</div>
+            </div>
+            <div class="metric-card accent">
+              <div class="m-label">Fluvanna Co. median income</div>
+              <div class="m-value">$91,959</div>
+              <div class="m-sub">2023 — 97% higher</div>
+            </div>
+          </div>
+
+          <div class="legend" style="margin-bottom: 6px;">
+            <span><span class="legend-line" style="background:#2c4a5a;"></span>Scottsville population</span>
+            <span><span class="legend-line" style="background:#1D9E75;"></span>Scottsville median income</span>
+            <span><span class="legend-line" style="background:#888; border-top: 2px dashed #888; height:0;"></span>Fluvanna median income</span>
+          </div>
+
+          <div class="chart-label">Population (left axis) &amp; median household income (right axis), 1990–2024</div>
+          <div class="chart-wrap" style="height: 320px;">
+            <canvas id="timelineChart" role="img" aria-label="Line chart showing Scottsville population declining from 620 in 1990 to 543 in 2024, while Fluvanna County income grew to nearly double Scottsville's median.">Population peaked at 620 in 1990, fell to 522 in 2020. Scottsville income grew slowly to $46,563 while Fluvanna County reached $91,959.</canvas>
+          </div>
+
+          <div class="event-grid">
+            <div class="event-card" style="border-left: 3px solid #1D9E75;">
+              <div class="e-year">1944</div>
+              <div class="e-desc">US Rubber plant opens — promises prosperity</div>
+            </div>
+            <div class="event-card" style="border-left: 3px solid var(--rust);">
+              <div class="e-year">May 1, 2004</div>
+              <div class="e-desc">Tenaska online — promises jobs (delivers 29)</div>
+            </div>
+            <div class="event-card" style="border-left: 3px solid #c0392b;">
+              <div class="e-year">2009</div>
+              <div class="e-desc">Hyosung tire plant closes — largest employer gone</div>
+            </div>
+            <div class="event-card" style="border-left: 3px solid #7F77DD;">
+              <div class="e-year">2024–present</div>
+              <div class="e-desc">West Village underway — promises growth and local jobs</div>
+            </div>
+          </div>
+
+          <div class="sources">Sources: US Census Bureau decennial census 1990–2020; ACS 2023; Tenaska Virginia Partners LP; Fluvanna Review.</div>
+        </div>
+
+        <!-- CHART 2: JOBS PROMISE VS REALITY -->
+        <div class="data-section">
+          <h2>Jobs promised vs. jobs delivered</h2>
+          <p class="section-sub">Construction jobs and permanent jobs are not the same thing. They are consistently presented as if they were.</p>
+
+          <div class="metric-grid">
+            <div class="metric-card warn">
+              <div class="m-label">Promised (construction)</div>
+              <div class="m-value">1,400</div>
+              <div class="m-sub">Temporary — 20 months</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Delivered (permanent)</div>
+              <div class="m-value">29</div>
+              <div class="m-sub">Ongoing, plant 1</div>
+            </div>
+            <div class="metric-card accent">
+              <div class="m-label">Live in Fluvanna Co.</div>
+              <div class="m-value">~19</div>
+              <div class="m-sub">Roughly ⅓ commute from outside</div>
+            </div>
+            <div class="metric-card warn">
+              <div class="m-label">Plant 2 permanent jobs</div>
+              <div class="m-value">29</div>
+              <div class="m-sub">Same promise, 2025</div>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div>
+              <div class="legend">
+                <span><span class="legend-swatch" style="background:#2c4a5a;"></span>Construction (temporary)</span>
+                <span><span class="legend-swatch" style="background:#1D9E75;"></span>Permanent</span>
+              </div>
+              <div class="chart-label">Construction jobs vs. permanent jobs</div>
+              <div class="chart-wrap" style="height: 260px;">
+                <canvas id="jobsChart" role="img" aria-label="Bar chart: 1,400 temporary construction jobs vs 29 permanent jobs at Tenaska.">Construction jobs: 1,400 temporary. Permanent jobs: 29.</canvas>
+              </div>
+            </div>
+            <div>
+              <div class="legend">
+                <span><span class="legend-swatch" style="background:#1D9E75;"></span>Live locally (~19)</span>
+                <span><span class="legend-swatch" style="background:#c0392b;"></span>Commute from outside (~10)</span>
+              </div>
+              <div class="chart-label">Of the 29 permanent jobs — who lives here?</div>
+              <div class="chart-wrap" style="height: 260px;">
+                <canvas id="residencyChart" role="img" aria-label="Donut chart: approximately 19 of 29 Tenaska employees live in Fluvanna County, 10 commute from outside.">~19 live locally, ~10 commute from outside.</canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="pattern-box">
+            <h3>The second plant — same promise, 2025</h3>
+            <p>Tenaska's proposed Expedition Generating Station — a 1,500 MW plant adjacent to the existing one — projects 1,000+ construction jobs over four years and 29 permanent employees once complete. The Fluvanna community stated it had not seen the benefits originally promised when the first plant was approved. The Planning Commission recommended denial. The Board of Supervisors approved it 4–1.</p>
+          </div>
+
+          <div class="sources">Sources: Tenaska Virginia Partners LP; Expedition Generating Station FAQs; Fluvanna Review (Aug. 2025); Cville Right Now (Jan. 2026); Piedmont Environmental Council.</div>
+        </div>
+
+        <!-- CHART 3: INCOME & POVERTY GAP -->
+        <div class="data-section">
+          <h2>The income &amp; poverty gap</h2>
+          <p class="section-sub">Tenaska's plant sits on the Fluvanna County side of the Scottsville boundary. The tax revenue goes to the county. The air pollution, the noise, and the poverty stay in the town.</p>
+
+          <div class="metric-grid">
+            <div class="metric-card accent">
+              <div class="m-label">Scottsville poverty rate</div>
+              <div class="m-value">14.8%</div>
+              <div class="m-sub">vs. 5.9% Fluvanna Co.</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Income gap per household</div>
+              <div class="m-value">$45,396</div>
+              <div class="m-sub">Every year, Scottsville vs. county</div>
+            </div>
+            <div class="metric-card accent">
+              <div class="m-label">Tenaska tax to county</div>
+              <div class="m-value">$34.9M</div>
+              <div class="m-sub">Since 2004 — to Fluvanna, not Scottsville</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Scottsville meals tax share</div>
+              <div class="m-value">22%+</div>
+              <div class="m-sub">Largest revenue source — no property tax</div>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div>
+              <div class="legend">
+                <span><span class="legend-swatch" style="background:#c0392b;"></span>Scottsville</span>
+                <span><span class="legend-swatch" style="background:#2c4a5a;"></span>Fluvanna Co.</span>
+                <span><span class="legend-swatch" style="background:#888;"></span>Virginia</span>
+              </div>
+              <div class="chart-label">Median household income, 2023</div>
+              <div class="chart-wrap" style="height: 260px;">
+                <canvas id="incomeChart" role="img" aria-label="Horizontal bar chart: Scottsville $46,563, Fluvanna County $91,959, Virginia $87,249.">Scottsville: $46,563. Fluvanna County: $91,959. Virginia: $87,249.</canvas>
+              </div>
+            </div>
+            <div>
+              <div class="legend">
+                <span><span class="legend-swatch" style="background:#c0392b;"></span>Scottsville</span>
+                <span><span class="legend-swatch" style="background:#2c4a5a;"></span>Fluvanna Co.</span>
+                <span><span class="legend-swatch" style="background:#888;"></span>Virginia</span>
+              </div>
+              <div class="chart-label">Poverty rate, 2023</div>
+              <div class="chart-wrap" style="height: 260px;">
+                <canvas id="povertyChart" role="img" aria-label="Bar chart: Scottsville poverty 14.8%, Fluvanna County 5.9%, Virginia 9.0%.">Scottsville: 14.8%. Fluvanna County: 5.9%. Virginia: 9.0%.</canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="sources">Sources: US Census Bureau ACS 2023; Scottsville Town Administrator Clark Draper via Cvillepedia; Tenaska Virginia Partners LP.</div>
+        </div>
+
+        <!-- CHART 4: CONTRIBUTORS VS EXTRACTORS -->
+        <div class="data-section">
+          <h2>Contributors &amp; extractors</h2>
+          <p class="section-sub">A contributor leaves more in a place than it takes out. An extractor does the reverse. The distinction is not ideological — it is a ledger.</p>
+
+          <div class="filter-row">
+            <button class="filter-btn active" id="btn-all" onclick="filterCards('all')">All</button>
+            <button class="filter-btn" id="btn-extractor" onclick="filterCards('extractor')">Extractors</button>
+            <button class="filter-btn" id="btn-contributor" onclick="filterCards('contributor')">Contributors</button>
+            <button class="filter-btn" id="btn-mixed" onclick="filterCards('mixed')">Mixed</button>
+          </div>
+
+          <div class="entity-grid" id="entity-grid"></div>
+
+          <div class="pattern-box" style="margin-top: 1.5rem;">
+            <h3>The pattern</h3>
+            <p>Each entity that arrived with a promise — jobs, growth, prosperity — extracted payroll, tax benefits, or economic activity from the community and relocated it elsewhere. The physical infrastructure stayed. The economic benefit left. The entities that contribute most are the ones that were never offered tax abatements or approval hearings: the families, the churches, the volunteer fire department, the neighbors who show up.</p>
+          </div>
+
+          <div class="sources">Sources: US Census Bureau; Tenaska Virginia Partners LP; Fluvanna Review; Cvillepedia; C-VILLE Weekly; Piedmont Environmental Council. Ledger entries based on documented public record.</div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Scottsville, Virginia &mdash; Population 600-something &mdash; On the James River since before Virginia decided what it was going to be.</p>
+      <p class="footer-links">
+        <a href="https://www.facebook.com/groups/scottsvillevirginia" target="_blank">Facebook Group</a>
+      </p>
+    </div>
+  </footer>
+
+<script>
+const gridColor = 'rgba(0,0,0,0.06)';
+const labelColor = '#7a6e62';
+
+// Chart 1 — Timeline
+new Chart(document.getElementById('timelineChart'), {
+  type: 'line',
+  data: {
+    labels: ['1990','2000','2004','2009','2010','2020','2023','2024'],
+    datasets: [
+      {
+        label: 'Scottsville population',
+        data: [620, 557, null, null, 566, 522, null, 543],
+        borderColor: '#2c4a5a',
+        backgroundColor: 'rgba(44,74,90,0.07)',
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointBackgroundColor: '#2c4a5a',
+        fill: false,
+        tension: 0.3,
+        yAxisID: 'yPop',
+        spanGaps: true,
+      },
+      {
+        label: 'Scottsville median income',
+        data: [null, 28000, null, null, 38000, 42000, 46563, null],
+        borderColor: '#1D9E75',
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: '#1D9E75',
+        fill: false,
+        tension: 0.3,
+        yAxisID: 'yIncome',
+        spanGaps: true,
+      },
+      {
+        label: 'Fluvanna median income',
+        data: [null, 46400, null, null, 64641, 75000, 91959, null],
+        borderColor: '#888780',
+        borderDash: [5,4],
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: '#888780',
+        fill: false,
+        tension: 0.3,
+        yAxisID: 'yIncome',
+        spanGaps: true,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            if (ctx.dataset.yAxisID === 'yIncome') return ctx.dataset.label + ': $' + (ctx.parsed.y ? ctx.parsed.y.toLocaleString() : 'N/A');
+            return ctx.dataset.label + ': ' + (ctx.parsed.y || 'N/A');
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: labelColor, font: { size: 11 }, autoSkip: false } },
+      yPop: {
+        type: 'linear', position: 'left', min: 300, max: 700,
+        grid: { color: gridColor },
+        ticks: { color: labelColor, font: { size: 11 }, callback: v => Math.round(v) },
+        title: { display: true, text: 'Population', color: labelColor, font: { size: 11 } }
+      },
+      yIncome: {
+        type: 'linear', position: 'right', min: 0, max: 110000,
+        grid: { drawOnChartArea: false },
+        ticks: { color: labelColor, font: { size: 11 }, callback: v => '$' + Math.round(v/1000) + 'k' },
+        title: { display: true, text: 'Median income', color: labelColor, font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// Chart 2a — Jobs bar
+new Chart(document.getElementById('jobsChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Construction jobs\n(20 months)', 'Permanent jobs\n(ongoing)'],
+    datasets: [{
+      data: [1400, 29],
+      backgroundColor: ['#2c4a5a', '#1D9E75'],
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString() + ' jobs' } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: labelColor, font: { size: 11 } } },
+      y: { grid: { color: gridColor }, ticks: { color: labelColor, font: { size: 11 }, callback: v => v.toLocaleString() }, beginAtZero: true }
+    }
+  }
+});
+
+// Chart 2b — Residency donut
+new Chart(document.getElementById('residencyChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Live in Fluvanna Co.', 'Commute from outside'],
+    datasets: [{
+      data: [19, 10],
+      backgroundColor: ['#1D9E75', '#c0392b'],
+      borderWidth: 3,
+      borderColor: '#faf7f2',
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ': ' + ctx.parsed } } }
+  }
+});
+
+// Chart 3a — Income horizontal bar
+new Chart(document.getElementById('incomeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Scottsville', 'Fluvanna County', 'Virginia'],
+    datasets: [{
+      data: [46563, 91959, 87249],
+      backgroundColor: ['#c0392b', '#2c4a5a', '#888780'],
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.x.toLocaleString() } } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: labelColor, font: { size: 11 }, callback: v => '$' + Math.round(v/1000) + 'k' }, beginAtZero: true, max: 110000 },
+      y: { grid: { display: false }, ticks: { color: labelColor, font: { size: 12 } } }
+    }
+  }
+});
+
+// Chart 3b — Poverty bar
+new Chart(document.getElementById('povertyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Scottsville', 'Fluvanna County', 'Virginia'],
+    datasets: [{
+      data: [14.8, 5.9, 9.0],
+      backgroundColor: ['#c0392b', '#2c4a5a', '#888780'],
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y.toFixed(1) + '%' } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: labelColor, font: { size: 12 } } },
+      y: { grid: { color: gridColor }, ticks: { color: labelColor, font: { size: 11 }, callback: v => v + '%' }, beginAtZero: true, max: 20 }
+    }
+  }
+});
+
+// Chart 4 — Contributors vs extractors
+const entities = [
+  {
+    name: 'Tenaska Virginia Generating Station',
+    type: 'extractor',
+    since: 'Online May 2004',
+    gave: ['29 permanent jobs (⅓ live outside county)','$34.9M in Fluvanna County tax revenue since 2004','$100K in student scholarships over 20 years','1,400 construction jobs (temporary, 20 months)'],
+    took: ['Millions of gallons/day from the James River','Air quality — particulate matter, NOx, CO₂','Persistent low-frequency noise (unmitigated)','Tax revenue flows to county, not Scottsville','Community trust — promised benefits not delivered'],
+    note: 'Now proposing a second 1,500 MW plant with the same 29-job promise.'
+  },
+  {
+    name: 'Hyosung / US Rubber tire plant',
+    type: 'mixed',
+    since: 'Open 1944, closed 2009',
+    gave: ['Major employer for 65 years','Sustained local population through mid-century','Anchor for regional economic identity'],
+    took: ['Left a vacant industrial site — empty 15+ years','No remediation or redevelopment funding','Economic vacuum on closure — no transition plan'],
+    note: 'The plant gave while it operated. Its closure revealed how little ownership the community had over its own economy.'
+  },
+  {
+    name: 'West Village development',
+    type: 'extractor',
+    since: 'Under construction 2024–present',
+    gave: ['New housing units — addresses population decline','Potential new tax base for the town','Responds to comprehensive plan growth targets'],
+    took: ['Construction workforce imported, not local hires','Economic activity of build phase left Scottsville','Growth may accelerate gentrification pressure'],
+    note: 'A town with essentially no Latino population; construction workforce is 100% Latino from outside the area.'
+  },
+  {
+    name: 'Flores Construction LLC',
+    type: 'extractor',
+    since: 'SCAN parking lot project',
+    gave: ['Completed infrastructure project','Grant money converted into physical asset'],
+    took: ['Entire payroll returned to Charlottesville','No local employment generated','Grant funds left the community on completion','Local contractors not considered or hired'],
+    note: 'In a small town, construction contracts are community decisions. This one was made as if the community were a job site, not a place.'
+  },
+  {
+    name: 'Scottsville volunteer community',
+    type: 'contributor',
+    since: 'Always',
+    gave: ['Volunteer fire department and rescue squad','Church networks — food, support, events','Neighbor-to-neighbor knowledge and trust','Informal economy of mutual aid','Community continuity through floods, closures, decline'],
+    took: ['Nothing extracted — no payroll leaves town','No tax abatements requested','No approval hearings required'],
+    note: 'The most durable infrastructure in Scottsville was never built with a grant or approved by a planning commission.'
+  },
+  {
+    name: 'Local business owners',
+    type: 'contributor',
+    since: 'Ongoing',
+    gave: ['Meals tax — 22%+ of town revenue','Local employment — payroll stays in community','Social fabric — known, named, present','Economic circulation within town boundary'],
+    took: ['Some dependence on outside supply chains','Vulnerable to population decline and income stagnation'],
+    note: 'The town runs on meals tax because it has no property tax. Local businesses are the tax base. They are also the community.'
+  }
+];
+
+const badgeClass = { extractor: 'badge-extractor', contributor: 'badge-contributor', mixed: 'badge-mixed' };
+const badgeLabel = { extractor: 'Extractor', contributor: 'Contributor', mixed: 'Mixed' };
+const borderColor = { extractor: '#c0392b', contributor: '#1D9E75', mixed: '#BA7517' };
+
+function renderEntities(list) {
+  const grid = document.getElementById('entity-grid');
+  grid.innerHTML = '';
+  list.forEach(e => {
+    const card = document.createElement('div');
+    card.className = 'entity-card';
+    card.style.borderTop = '3px solid ' + borderColor[e.type];
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-name">${e.name}</div>
+        <span class="badge ${badgeClass[e.type]}">${badgeLabel[e.type]}</span>
+      </div>
+      <div class="card-since">${e.since}</div>
+      <div class="ledger-cols">
+        <div>
+          <div class="ledger-head gave">Put in</div>
+          <ul class="ledger-list">${e.gave.map(g => `<li>${g}</li>`).join('')}</ul>
+        </div>
+        <div>
+          <div class="ledger-head took">Took out</div>
+          <ul class="ledger-list">${e.took.map(t => `<li>${t}</li>`).join('')}</ul>
+        </div>
+      </div>
+      ${e.note ? `<div class="card-note">${e.note}</div>` : ''}
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterCards(type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + type).classList.add('active');
+  renderEntities(type === 'all' ? entities : entities.filter(e => e.type === type));
+}
+
+renderEntities(entities);
+</script>
+
+</body>
+</html>
