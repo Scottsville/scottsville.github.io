@@ -1,403 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>History — The Bend in the River</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink:        #1a1612;
-    --ink-soft:   #3d342a;
-    --stone:      #7a6e5f;
-    --river:      #2c4a5a;
-    --river-mid:  #4a7a8a;
-    --sand:       #f4ede0;
-    --sand-dark:  #e0d0b8;
-    --rust:       #8b3a1a;
-    --gold:       #b8922a;
-    --cream:      #faf6ef;
-    --white:      #ffffff;
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body:    'Libre Baskerville', Georgia, serif;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.85;
-    color: var(--ink-soft);
-    background: var(--cream);
-  }
-
-  /* ---- MASTHEAD ---- */
-  .masthead {
-    background: var(--river);
-    color: var(--sand);
-    padding: 5rem 2rem 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .masthead::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 60px,
-      rgba(255,255,255,0.03) 60px,
-      rgba(255,255,255,0.03) 61px
-    );
-  }
-
-  .masthead::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: linear-gradient(90deg, var(--rust), var(--gold), var(--rust));
-  }
-
-  .masthead-rule {
-    width: 80px;
-    height: 1px;
-    background: var(--gold);
-    margin: 1.25rem auto;
-    opacity: 0.7;
-  }
-
-  .masthead-eyebrow {
-    font-family: var(--font-body);
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--river-mid);
-    margin-bottom: 0.75rem;
-  }
-
-  .masthead h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 6vw, 4rem);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.15;
-    color: var(--sand);
-    position: relative;
-  }
-
-  .masthead h1 strong {
-    font-weight: 600;
-    font-style: normal;
-    display: block;
-    font-size: 0.55em;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.25em;
-  }
-
-  .masthead-sub {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--sand-dark);
-    max-width: 520px;
-    margin: 0 auto;
-    opacity: 0.85;
-    position: relative;
-  }
-
-  /* ---- CONTENTS ---- */
-  .toc {
-    background: var(--sand);
-    border-top: 1px solid var(--sand-dark);
-    border-bottom: 3px double var(--sand-dark);
-    padding: 2rem;
-    text-align: center;
-  }
-
-  .toc-title {
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--stone);
-    margin-bottom: 1rem;
-  }
-
-  .toc-list {
-    list-style: none;
-    
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.25rem 1.5rem;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .toc-list li a {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-style: italic;
-    color: var(--river);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s, color 0.15s;
-  }
-
-  .toc-list li a:hover {
-    color: var(--rust);
-    border-color: var(--rust);
-  }
-
-  /* ---- LAYOUT ---- */
-  .page-wrap {
-    max-width: 740px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  /* ---- CHAPTER ---- */
-  .chapter {
-    padding: 4rem 0 3rem;
-    border-bottom: 1px solid var(--sand-dark);
-  }
-
-  .chapter:last-of-type {
-    border-bottom: none;
-  }
-
-  .chapter-header {
-    margin-bottom: 2rem;
-  }
-
-  .chapter-num {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 0.4rem;
-  }
-
-  .chapter-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--river);
-    line-height: 1.2;
-    margin-bottom: 0.25rem;
-  }
-
-  .chapter-dates {
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--stone);
-    border-left: 2px solid var(--gold);
-    padding-left: 0.75rem;
-    margin-top: 0.6rem;
-  }
-
-  .chapter-body p {
-    margin-bottom: 1.4rem;
-    font-size: 1rem;
-    color: var(--ink-soft);
-  }
-
-  .chapter-body p:first-of-type::first-letter {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    font-weight: 600;
-    line-height: 0.8;
-    float: left;
-    margin-right: 0.1em;
-    margin-top: 0.1em;
-    color: var(--river);
-  }
-
-  /* ---- PULL QUOTE ---- */
-  .pull-quote {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.3rem;
-    color: var(--river);
-    border-left: 3px solid var(--rust);
-    padding: 0.75rem 0 0.75rem 1.5rem;
-    margin: 2rem 0;
-    line-height: 1.5;
-  }
-
-  /* ---- EVENT MARKER ---- */
-  .event-marker {
-    display: block;
-    margin: 1.75rem 0;
-    padding: 1rem 1.1rem;
-    background: var(--sand);
-    border-radius: 2px;
-    border-left: 3px solid var(--river-mid);
-  }
-
-  .event-marker.red { border-left-color: var(--rust); }
-  .event-marker.gold { border-left-color: var(--gold); }
-
-  .event-year {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--river);
-    margin-bottom: 0.4rem;
-    
-  }
-
-  .event-desc {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-
-  /* ---- FLOOD TABLE ---- */
-  .flood-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-    font-size: 0.85rem;
-  }
-
-  .flood-table th {
-    background: var(--river);
-    color: var(--sand);
-    font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.6rem 0.8rem;
-    text-align: left;
-  }
-
-  .flood-table td {
-    padding: 0.5rem 0.8rem;
-    border-bottom: 1px solid var(--sand-dark);
-    color: var(--ink-soft);
-  }
-
-  .flood-table tr:nth-child(even) td {
-    background: var(--sand);
-  }
-
-  .flood-table .major {
-    color: var(--rust);
-    font-weight: 700;
-  }
-
-  /* ---- SECTION RULE ---- */
-  .ornament {
-    text-align: center;
-    color: var(--gold);
-    font-size: 1rem;
-    letter-spacing: 0.5em;
-    margin: 2.5rem 0;
-    opacity: 0.6;
-  }
-
-  /* ---- FOOTER ---- */
-  footer {
-    background: var(--river);
-    color: var(--sand-dark);
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-    border-top: 3px solid var(--rust);
-    font-size: 0.82rem;
-    line-height: 1.8;
-  }
-
-  footer a {
-    color: var(--river-mid);
-    text-decoration: none;
-  }
-
-  /* ---- RESPONSIVE ---- */
-  @media (max-width: 600px) {
-    .masthead { padding: 3rem 1.25rem 3rem; }
-    .chapter-body p:first-of-type::first-letter { font-size: 2.8rem; }
-    .flood-table { font-size: 0.78rem; }
-    .flood-table th, .flood-table td { padding: 0.4rem 0.5rem; }
-  }
-
-  /* ---- SITE NAV ---- */
-  header nav {
-    background: #1a2e38;
-    border-bottom: 3px solid #8b3a1a;
-    padding: 0 1.5rem;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-home {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-style: italic;
-    color: #f4ede0 !important;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .nav-home:hover { color: #ffffff !important; }
-  header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 0.2rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-  header nav ul li a {
-    font-family: var(--font-body);
-    font-size: 0.82rem;
-    color: #e0d0b8;
-    text-decoration: none;
-    padding: 0.3rem 0.6rem;
-    border-radius: 2px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    transition: background 0.15s, color 0.15s;
-  }
-  header nav ul li a:hover,
-  header nav ul li a.active {
-    background: #8b3a1a;
-    color: #ffffff;
-  }
-  @media (max-width: 640px) {
-    header nav {
-      flex-direction: column;
-      height: auto;
-      padding: 0.75rem 1rem;
-      gap: 0.5rem;
-    }
-    header nav ul { justify-content: center; gap: 0.15rem; }
-    header nav ul li a { font-size: 0.75rem; padding: 0.25rem 0.45rem; }
-  }
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History — The Bend in the River</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -410,312 +19,91 @@
         <li><a href="today.html">The Town Today</a></li>
         <li><a href="issues.html">Issues</a></li>
         <li><a href="data.html">The Data</a></li>
+        <li><a href="taxes.html">Taxes &amp; Property</a></li>
         <li><a href="resources.html">Resources</a></li>
       </ul>
     </nav>
   </header>
 
-<header class="masthead">
-  <p class="masthead-eyebrow">A History of</p>
-  <h1>
-    <strong>Scottsville</strong>
-    Virginia
-  </h1>
-  <div class="masthead-rule"></div>
-  <p class="masthead-sub">From the first people at the horseshoe bend, to the present day.</p>
-</header>
+  <main class="page-main">
 
-<nav class="toc" aria-label="Table of contents">
-  <p class="toc-title">Contents</p>
-  <ul class="toc-list">
-    <li><a href="#monacan">I. The Monacan People</a></li>
-    <li><a href="#founding">II. Scott's Landing</a></li>
-    <li><a href="#canal">III. The Canal Era</a></li>
-    <li><a href="#civil-war">IV. The Civil War</a></li>
-    <li><a href="#floods">V. The Floods</a></li>
-    <li><a href="#industry">VI. Industry &amp; Decline</a></li>
-    <li><a href="#modern">VII. The Modern Era</a></li>
-  </ul>
-</nav>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Welcome to Scottsville</h1>
+        <p class="page-sub">A place with a very long memory.</p>
+      </div>
+    </section>
 
-<main>
+    <section class="prose-section">
+      <div class="container prose">
 
-<!-- CHAPTER I -->
-<section class="chapter" id="monacan">
-<div class="page-wrap">
-  <div class="chapter-header">
-    <span class="chapter-num">Chapter I</span>
-    <h2 class="chapter-title">The Monacan People</h2>
-    <p class="chapter-dates">10,000 BCE — 1607 CE and beyond</p>
-  </div>
-  <div class="chapter-body">
+        <p class="lead">There is a bend in the James River in central Virginia where the water slows and the hills lean in close, and people have been choosing to stop there for a very long time.</p>
 
-    <p>Long before there was a Scottsville, long before there was a Virginia, long before there was anyone to name this particular bend in the river, there were the Monacan. Their presence here reaches back at least ten thousand years — a span of time so vast it makes the entire history of European settlement in the Americas look like an afternoon.</p>
+        <p>The Monacan people knew this place first and understood what the river meant — not just as water, but as a road, a source of life, a reason to stay. When the English arrived in the early 18th century and began calling the place Scott's Landing, they understood the same thing. In 1744, before Charlottesville existed, before Monticello was built, men gathered here to establish the first government of Albemarle County. Peter Jefferson, Thomas's father, was among them. The river made Scottsville matter before Virginia had fully decided what it was going to be.</p>
 
-    <p>The Monacan Nation belonged to the Eastern Siouan language family, related to the Tutelo, the Occaneechi, and the Saponi peoples. Their territory once covered roughly half of what is now Virginia — most of the Piedmont region, portions of the Blue Ridge, and stretches of the Shenandoah Valley. They lived above the falls of the James River, in the interior highlands that the coastal Algonquian-speaking confederacy of Tsenacomoco never fully controlled. The Monacan and the Powhatan peoples were traditional rivals, a rivalry that predated European contact by centuries.</p>
+        <h2>The Canal Era</h2>
 
-    <p>The horseshoe bend of the James River at Scottsville was not incidental to Monacan life. The river was everything — road, larder, boundary, and sacred presence. They worshipped it as a bringer of life, which it was. The fertile bottomlands of the bend produced food. The river itself provided fish. The surrounding piedmont provided game, timber, and clay. The Monacan village site of Monasukapanough, documented by archaeologists and occupied from approximately 1300 to 1670 CE, sat within what is now the Scottsville area, its burial mounds once rising twelve feet above the landscape.</p>
+        <p>For a century, this town was the largest inland port on the James River and Kanawha Canal — the largest grain market in Virginia, with the agricultural wealth of the entire Shenandoah Valley passing through on its way to Richmond and the sea. The canal was the economic spine of the region, and Scottsville was one of its vital vertebrae. Goods, people, and money moved through here in volumes that made this small bend in the river matter far beyond its size.</p>
 
-    <div class="pull-quote">They worshipped the river as a bringer of life. They had been doing so for ten thousand years before anyone else arrived to name it.</div>
+        <h2>Sheridan's Cavalry, 1865</h2>
 
-    <p>When the English landed at Jamestown in 1607, the Monacan remained in their Piedmont homeland, somewhat insulated from initial contact by distance and geography. But the pressures of colonization moved inland. Disease preceded settlers, moving faster than any army. Trade networks entangled communities. By the late 17th century, Monacan populations had been dramatically reduced and their territorial sovereignty steadily eroded.</p>
+        <p>In 1865, General Philip Sheridan's cavalry came through the Valley with orders to break it — not just militarily but economically, permanently. They breached the canal and destroyed the locks. It was a deliberate act of infrastructure erasure, and it worked. The canal never recovered. The commerce that had made Scottsville a significant place rerouted, the river traffic died, and the town that had been growing steadily found itself standing at the edge of a different future than the one it had been building toward.</p>
 
-    <p>The early 1800s brought a particularly sorrowful chapter. Monacan people continued to travel to their ancestral burial mounds along the James to worship — journeys that required crossing land that had been claimed, fenced, and deeded to others. Those journeys stopped when the mounds were plowed flat. The physical memory of their presence was erased from the landscape by the same agricultural economy that had displaced them from it.</p>
+        <p>That is not sentimentality. It is engineering. You destroy the locks, you destroy the town's reason for being what it was. What happened after — the slower pace, the smaller scale, the quiet that settled over the place — had a specific cause and a specific date.</p>
 
-    <p>The Monacan Nation survived. Today they are a federally recognized tribe of approximately 2,300 citizens, headquartered at Bear Mountain in Amherst County — still in their ancestral homeland, still on the James River watershed. The Scottsville Museum holds a collection of Monacan artifacts recovered from the area. The town formally acknowledges the Monacan Nation as the traditional custodians of the land where Scottsville now stands.</p>
+        <p><em>What happened after all of that is the more interesting story. The town didn't leave.</em></p>
 
-    <p>They were here first. They are here still.</p>
+        <h2>Floods and Recovery</h2>
 
-  </div>
-</div>
-</section>
+        <p>Twenty-one major floods since 1870. The river reclaiming what it had given, the town absorbing each one and beginning again. A factory brought new life in 1944 and sustained it for sixty years before closing, taking jobs and revenue with it, leaving behind a silence that the town has been learning to fill ever since.</p>
 
-<!-- CHAPTER II -->
-<section class="chapter" id="founding">
-<div class="page-wrap">
-  <div class="chapter-header">
-    <span class="chapter-num">Chapter II</span>
-    <h2 class="chapter-title">Scott's Landing</h2>
-    <p class="chapter-dates">1720s — 1818</p>
-  </div>
-  <div class="chapter-body">
+        <h2>What Was Built</h2>
 
-    <p>In the 1720s, the first English settlers began arriving at the horseshoe bend of the James, drawn by the same things that had drawn the Monacan for millennia — fertile bottomland, river access, the natural harbor formed by the bend itself. Among the earliest was a family named Scott, and the landing on the northern bank of the river began to carry their name.</p>
+        <p>Through all of it — the prosperity and the loss, the floods and the recoveries, the industries that came and went — the people stayed. They stayed and they built something that does not appear on any balance sheet and cannot be photographed for a real estate listing. They built the particular trust that develops between people who have watched each other struggle and helped each other up. They built the knowledge of who to call when something breaks and who will bring food without being asked and who has been through something similar and survived it. They built, slowly and without much fanfare, a community — which is a different thing from a collection of residents, and rarer than most people realize until they've lived somewhere without one.</p>
 
-    <p>The settlement grew around fifteen acres owned by Dr. John Scott. Edward Scott's house served as an informal courthouse before a proper one was built. The location, at what was then the western edge of organized Virginia settlement, made it a natural administrative center for the vast and largely unmapped interior.</p>
+        <p>You have come to a place with a very long memory.</p>
 
-    <div class="event-marker gold">
-      <span class="event-year">1744</span>
-      <span class="event-desc">Men gather at Scott's Landing to establish the first government of Albemarle County. Among them is Peter Jefferson — Thomas Jefferson's father — who serves as justice for the newly formed county. Scott's Landing becomes Albemarle's first county seat, predating Charlottesville by nearly two decades.</span>
+        <p>That is not said to intimidate you. It is said to invite you into something real.</p>
+
+        <h2>The Quilt</h2>
+
+        <p>Every community is a quilt made of the people who came before — their choices and their losses, their labor and their love for a particular bend in a particular river. Scottsville's quilt is old and specific and full of stories that deserve to be known. The square that brought electricity to these hills. The square of the batteaumen on the river. The square of the families who stayed through floods that should have driven them away. The square of the school built by a community for its children when no one else would build it, named for the man who worked hotel kitchens in summers to fund it, and who died the year it opened.</p>
+
+        <p>You are here now. There is a square for you too — space genuinely set aside, not reluctantly but earnestly, because a living community needs new people the way a river needs rain.</p>
+
+        <h2>What Is Asked</h2>
+
+        <p>What is asked of you is not compliance or performance or the particular kind of reverence that feels like a burden.</p>
+
+        <p>It's something simpler and harder than that, and I'm not sure I can name it exactly. I've been trying. It has something to do with showing up — to the events that seem small, the meetings that seem tedious, the conversations without obvious outcomes. It has something to do with learning names before you learn property values. With letting this place change you some before you try to change it.</p>
+
+        <p>This town notices things, and it has long eyes and a longer memory. But what it remembers isn't where you came from or how your name sounds in somebody else's mouth. It remembers whether you were <em>here</em> — in some way that mattered — or whether you were just present, the way furniture is present.</p>
+
+        <p>I've watched people arrive from places most of us couldn't find on a map, still feeling their way through the language, and inside of a year they weren't newcomers anymore. Not because time had passed. Something else had passed. Some threshold of attention, of intention — of trying to be <em>here</em> rather than just occupying a zip code. And I've known people who lived here a long time and stayed new the whole while. This place will let you do that if you want. It'll also let you in, completely and without reservation, if you're trying to get in.</p>
+
+        <p class="pullquote">Scottsville meets people halfway. But you do have to walk that half.</p>
+
+        <p>Scottsville has survived things that should have finished it. The people who made that survival possible were not remarkable in any way that history tends to record. They were farmers and mechanics and teachers and store owners and river men and mothers who kept going because the alternative was unacceptable and because the person next to them was also keeping going. That continuity is the most valuable thing this town possesses. It is more valuable than the historic district, more valuable than the river view, more valuable than the proximity to Charlottesville. It cannot be manufactured or purchased or replaced once it is gone.</p>
+
+        <p>You have chosen well, coming here. The river is beautiful and the hills are old and the people are real in a way that is increasingly hard to find.</p>
+
+        <p class="closing">Add your square to the quilt. Make it something worth inheriting.</p>
+
+        <p class="closing-small">Welcome to Scottsville.</p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Scottsville, Virginia &mdash; Population 600-something &mdash; On the James River since before Virginia decided what it was going to be.</p>
+      <p class="footer-links">
+        <a href="https://www.facebook.com/groups/scottsvillevirginia" target="_blank">Facebook Group</a>
+      </p>
     </div>
-
-    <p>Peter Jefferson's presence at that founding gathering is a detail worth pausing on. His son Thomas, who would later practice law in the Scottsville courthouse and visit the area frequently throughout his life, was not yet born. The town that would become Scottsville existed before Monticello, before the University of Virginia, before Charlottesville itself. When Thomas Jefferson later sought refuge from British forces during the Revolutionary War, he passed through Scottsville — the historical record notes he took the opportunity to examine a cave in the river bluffs.</p>
-
-    <p>Randolph Jefferson, Thomas's younger brother, settled in the area and his descendants shaped the town's early commercial identity. Peter Field Jefferson, Randolph's son and Thomas's nephew, became one of Scottsville's most prominent early businessmen — his rise and fall tracking the town's own arc across seven decades of frontier, canal boom, and Civil War.</p>
-
-    <div class="event-marker">
-      <span class="event-year">1762</span>
-      <span class="event-desc">The county seat is relocated to Charlottesville. Scottsville loses its governmental primacy but retains its commercial importance as a river trading post.</span>
-    </div>
-
-    <div class="event-marker gold">
-      <span class="event-year">1818</span>
-      <span class="event-desc">The Virginia General Assembly formally establishes Scottsville as a town. It is officially incorporated in 1833.</span>
-    </div>
-
-    <p>By its incorporation, Scottsville had already established its identity as a river town — a tobacco inspection station with a ferry crossing, a gathering place for commerce moving between the interior and the coast. What came next would make it genuinely significant.</p>
-
-  </div>
-</div>
-</section>
-
-<!-- CHAPTER III -->
-<section class="chapter" id="canal">
-<div class="page-wrap">
-  <div class="chapter-header">
-    <span class="chapter-num">Chapter III</span>
-    <h2 class="chapter-title">The Canal Era</h2>
-    <p class="chapter-dates">1840 — 1865</p>
-  </div>
-  <div class="chapter-body">
-
-    <p>Everything changed in 1840, when the James River and Kanawha Canal was completed to Scottsville. The canal transformed what had been a promising river landing into one of the most commercially significant interior ports in Virginia. For twenty-five years — the 1840s and 1850s, called its golden era — Scottsville was the largest inland port above Richmond on the James River and the largest grain market in Virginia.</p>
-
-    <p>The agricultural wealth of the entire Shenandoah Valley moved through this town. Tobacco, grain, flour, and iron came east on the canal toward Richmond and the sea. Coffee, tea, molasses, sugar, and manufactured goods came west, bound for the interior. At its height, the canal carried tonnage that would seem implausible for a town of Scottsville's size today.</p>
-
-    <div class="pull-quote">The 1840s and 1850s were Scottsville's golden era. It was the largest inland port on the James River above Richmond — a town that mattered far beyond its size.</div>
-
-    <p>The vessels that made this possible were the batteaux — long, flat-bottomed river craft designed specifically for the James, capable of carrying as many as eleven hogsheads of tobacco (roughly 11,000 pounds) through the river's curves and the canal's locks. The batteaumen who poled these craft were among the most skilled rivermen in colonial and early American Virginia. They were largely enslaved men and freedmen, absent from their home plantations for weeks at a time, navigating hundreds of miles of river and canal with extraordinary competence. Their names are mostly lost to the historical record. Their labor is not — it is embedded in the very commerce that built the town.</p>
-
-    <p>The canal also brought packet boats — the luxury liners of the James River system — carrying passengers in relative comfort between Lynchburg and Richmond, with Scottsville as a principal stop. For a brief and prosperous quarter-century, the horseshoe bend of the James was a place where the world passed through.</p>
-
-    <div class="event-marker">
-      <span class="event-year">1840</span>
-      <span class="event-desc">The James River and Kanawha Canal is completed to Scottsville. The town becomes the largest inland port above Richmond — the chief shipping hub for the Shenandoah Valley's agricultural output.</span>
-    </div>
-
-    <p>Then, in the span of a single afternoon in March 1865, it ended.</p>
-
-  </div>
-</div>
-</section>
-
-<!-- CHAPTER IV -->
-<section class="chapter" id="civil-war">
-<div class="page-wrap">
-  <div class="chapter-header">
-    <span class="chapter-num">Chapter IV</span>
-    <h2 class="chapter-title">When War Came</h2>
-    <p class="chapter-dates">1861 — 1865</p>
-  </div>
-  <div class="chapter-body">
-
-    <p>Scottsville did not escape the Civil War. During the conflict, buildings in the town served as Confederate hospitals. The war moved through the surrounding county in multiple directions, and by early 1865 the Confederacy was in its final weeks. Then came Sheridan.</p>
-
-    <div class="event-marker red">
-      <span class="event-year">March 6, 1865</span>
-      <span class="event-desc">At 3 p.m., the first of Union General Philip Sheridan's 10,000 cavalrymen — under Generals Wesley Merritt, Thomas Devin, and George Armstrong Custer — enter Scottsville unopposed. Sheridan chooses Cliffside on Warren Street as his headquarters. General Merritt takes Old Hall on Harrison Street.</span>
-    </div>
-
-    <p>Sheridan's orders were not to occupy Scottsville but to destroy it as an economic and logistical asset. His cavalry burned a woolen factory, a candle factory, a large five-story flouring mill, machine shops, and tobacco warehouses. Three canal boats were captured — one loaded with Confederate artillery shells, two with commissary stores and tobacco. Private dwellings near the mill were scorched by the intense heat of the burning structures.</p>
-
-    <p>Then they destroyed the canal locks.</p>
-
-    <p>Upriver from Scottsville to New Market, the lock system of the James River and Kanawha Canal was systematically disabled. Seven bridges at Columbia were destroyed. This was not incidental damage — it was the deliberate erasure of infrastructure that had taken decades and enormous capital to build. The canal that had made Scottsville the largest inland port above Richmond was rendered inoperable. The commerce that had defined the town's golden era would never return.</p>
-
-    <div class="pull-quote">You destroy the locks, you destroy the town's reason for being what it was. What happened after — the slower pace, the smaller scale, the quiet — had a specific cause and a specific date.</div>
-
-    <p>There is a human detail from that March afternoon worth preserving. Major James Christian Hill, a Scottsville businessman and commander of the 46th Virginia Regiment, had been seriously wounded at Petersburg the previous July. He was convalescing at Chester, the home of his mother-in-law on James River Road. Knowing he would likely be arrested and taken away, Hill wrote a letter to General Sheridan explaining the family's situation — the invalid officer, the women of the household, the servants — and asking for a guard to protect the house. Sheridan granted it.</p>
-
-    <p>Five weeks after leaving Scottsville, Sheridan's cavalry was at Appomattox. The war ended. The canal did not recover. Scottsville's manufacturing facilities, the Cvillepedia record notes, never fully recovered either — while the Charlottesville woolen mill that Sheridan's men also burned was rebuilt by the Marchant family within years.</p>
-
-    <p>The difference between a town that recovers from destruction and one that doesn't is rarely about the destruction itself. It is about what the town had that made recovery worth investing in. Without the canal, Scottsville had less reason to attract that investment. The locks were gone. The traffic had rerouted. The golden era was over.</p>
-
-  </div>
-</div>
-</section>
-
-<!-- CHAPTER V -->
-<section class="chapter" id="floods">
-<div class="page-wrap">
-  <div class="chapter-header">
-    <span class="chapter-num">Chapter V</span>
-    <h2 class="chapter-title">The River Remembers</h2>
-    <p class="chapter-dates">1870 — present</p>
-  </div>
-  <div class="chapter-body">
-
-    <p>Scottsville sits on the outside of a horseshoe bend in the James River. This geography gave it its commercial identity — the natural harbor, the deep water, the turning basin for canal boats. It also made the town extraordinarily vulnerable to flooding. The river that built Scottsville has spent a century and a half trying to reclaim it.</p>
-
-    <p>Since 1870, the James at Scottsville has reached flood stage — twenty feet above mean low water — on 44 recorded occasions. Fourteen of those have been classified as major floods, with crests above twenty-four feet. The worst came in June 1972, when Hurricane Agnes pushed the river to 34.02 feet, carrying 301,000 cubic feet of water per second past the town. The flood of September 1870, the first in the recorded record, crested at 30.7 feet. Hurricane Camille's remnants brought 30 feet in August 1969. Hurricane Juan in November 1985 brought 31.77 feet.</p>
-
-    <p>Each time, the town absorbed the water and the mud and the damage, and began again. The continuity of that response — not recovery, exactly, but resumption — is one of the defining facts of Scottsville's character. The people who stayed through the floods did not do so because they had nowhere to go. They stayed because the place was theirs.</p>
-
-    <div class="ornament">— ✦ —</div>
-
-    <p><strong>Major floods at Scottsville, 1870–present</strong></p>
-    <table class="flood-table" aria-label="Major flood events at Scottsville, Virginia">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Crest (ft)</th>
-          <th>Cause</th>
-          <th>Category</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>September 30, 1870</td><td class="major">30.7</td><td>Prolonged storm event</td><td>Major</td></tr>
-        <tr><td>November 24, 1877</td><td class="major">27.9</td><td>Storm event</td><td>Major</td></tr>
-        <tr><td>March 28, 1913</td><td class="major">25.2</td><td>Storm event</td><td>Major</td></tr>
-        <tr><td>August 16, 1940</td><td class="major">25.8</td><td>Category 1 hurricane</td><td>Major</td></tr>
-        <tr><td>September 19, 1944</td><td class="major">26.0</td><td>Storm event</td><td>Major</td></tr>
-        <tr><td>August 20, 1969</td><td class="major">30.0</td><td>Hurricane Camille remnants — 12–20" rainfall in 3–5 hours</td><td>Major</td></tr>
-        <tr><td>June 22, 1972</td><td class="major">34.0</td><td>Hurricane Agnes — record crest, 301,000 cfs</td><td>Major</td></tr>
-        <tr><td>November 6, 1985</td><td class="major">31.8</td><td>Hurricane Juan — second highest on record</td><td>Major</td></tr>
-        <tr><td>April 17, 1987</td><td class="major">26.2</td><td>Mid-latitude cyclone</td><td>Major</td></tr>
-        <tr><td>April 23, 1992</td><td class="major">25.3</td><td>Storm event</td><td>Major</td></tr>
-        <tr><td>January 20, 1996</td><td class="major">26.0</td><td>Rapid snowmelt — worst MARFC flooding since 1972</td><td>Major</td></tr>
-        <tr><td>September 7, 1996</td><td class="major">28.3</td><td>Hurricane Fran — worst Maryland flooding since Hazel</td><td>Major</td></tr>
-      </tbody>
-    </table>
-
-    <div class="event-marker gold">
-      <span class="event-year">1989</span>
-      <span class="event-desc">A major flood control project is completed, providing the town its first reliable protection from the James River's periodic reclamations. For the first time in its history, Scottsville can plan without the certainty of periodic inundation.</span>
-    </div>
-
-  </div>
-</div>
-</section>
-
-<!-- CHAPTER VI -->
-<section class="chapter" id="industry">
-<div class="page-wrap">
-  <div class="chapter-header">
-    <span class="chapter-num">Chapter VI</span>
-    <h2 class="chapter-title">Industry &amp; the Long Decline</h2>
-    <p class="chapter-dates">1865 — 2009</p>
-  </div>
-  <div class="chapter-body">
-
-    <p>In the years after the Civil War, Scottsville contracted. The canal was gone. The Virginia Central Railroad had reached Charlottesville by 1850 — while Scottsville was still a canal town — establishing Charlottesville as the region's railroad hub before Scottsville could compete. When the Richmond and Allegheny Railroad finally arrived in Scottsville in the 1880s, it came built on the ruins of what it replaced: the old James River and Kanawha Canal towpath, repurposed as a rail bed. The tracks that run through Scottsville today — now operated by CSX — follow the same route the canal boats once traveled. But by the time the railroad arrived, the commercial momentum had long since shifted north to Charlottesville. The railroad confirmed the new order rather than restoring the old one. The major flood of 1870, just five years after Sheridan's cavalry, dealt another blow to a town already struggling to find its post-canal identity.</p>
-
-    <p>The late 19th and early 20th centuries brought recurring floods and modest recovery between them. The town persisted — its historic buildings accumulating, its families staying, its character solidifying into something quieter and more insular than the bustling inland port of the 1840s. It was no longer a place the world passed through. It was a place people lived.</p>
-
-    <div class="event-marker gold">
-      <span class="event-year">1944</span>
-      <span class="event-desc">The United States Rubber Company builds a plant on 51 acres just west of Scottsville, producing rayon tire cord for military vehicles during World War II. The plant is the largest economic development in the town's post-canal history. At the end of the war in 1945, Uniroyal purchases the plant and continues manufacturing operations.</span>
-    </div>
-
-    <p>The plant changed everything for a time. It brought stable employment, a payroll that circulated through the local economy, and a reason for families to stay rather than leave for the cities. For sixty-five years, the tire plant was the economic anchor of Scottsville — its largest employer, the institution around which the town's working life organized itself.</p>
-
-    <p>The plant passed through multiple ownership changes over the decades. Uniroyal. Uniroyal Goodrich. Through the 1990s, as NAFTA accelerated the offshoring of American manufacturing and the tire industry consolidated, employment at the plant contracted. The Korean conglomerate Hyosung acquired the facility and operated it into the 2000s. But the forces of global manufacturing economics were larger than any single facility could resist.</p>
-
-    <div class="event-marker red">
-      <span class="event-year">2009</span>
-      <span class="event-desc">Hyosung closes the Scottsville tire plant. The town's largest employer for sixty-five years goes dark. The 51-acre site — the former US Rubber plant that once employed hundreds — sits vacant. It remains empty to this day.</span>
-    </div>
-
-    <p>The closure in 2009 was not simply the loss of jobs. It was the removal of the economic rationale that had sustained the town through the second half of the twentieth century. Population, which had recovered somewhat during the plant's operating years, declined. The population that had reached 566 in 2010 — partly buoyed by the plant's legacy — fell to 522 by 2020.</p>
-
-    <p>The parallel with 1865 is not accidental. In both cases, an outside actor made a decision — to destroy the canal locks, to close the manufacturing facility — that removed the economic engine the town depended on. In neither case did Scottsville have meaningful control over that decision. In both cases, what followed was a long, slow contraction that the community survived through the same mechanisms it always had: staying, knowing each other, holding on.</p>
-
-  </div>
-</div>
-</section>
-
-<!-- CHAPTER VII -->
-<section class="chapter" id="modern">
-<div class="page-wrap">
-  <div class="chapter-header">
-    <span class="chapter-num">Chapter VII</span>
-    <h2 class="chapter-title">The Modern Era</h2>
-    <p class="chapter-dates">1989 — present</p>
-  </div>
-  <div class="chapter-body">
-
-    <p>The 1989 flood control project was the first genuinely good news in Scottsville's infrastructure story in over a century. It did not make the town prosperous, but it removed a recurring catastrophe from the calendar. For the first time, the river was a neighbor rather than a periodic destroyer. The James, which had defined Scottsville from its first settlement, was finally managed rather than merely endured.</p>
-
-    <p>The town's historic district — over 150 buildings representing commercial, residential, religious, and industrial architecture from multiple centuries — became a resource in the post-industrial era. Tourism, river recreation, and the proximity to Charlottesville gave Scottsville a different kind of relevance. The Canal Basin Square opened as an outdoor heritage park. The Scottsville Museum became a repository for the town's extraordinary layered history. The James River Batteau Festival, revived in 1985 and running annually, reconnects the river's present to its past.</p>
-
-    <div class="event-marker gold">
-      <span class="event-year">May 1, 2004</span>
-      <span class="event-desc">The Tenaska Virginia Generating Station, a 940-megawatt natural gas power plant, comes online in Fluvanna County adjacent to Scottsville. The project promises economic benefit to the region. It employs 29 permanent workers, approximately one-third of whom live outside the county. Its tax revenue accrues to Fluvanna County.</span>
-    </div>
-
-    <p>The 21st century has brought Scottsville the pressures of its own relative virtue. A town of 600 people that retained its historic fabric, its community cohesion, and its position on a beautiful river — twenty minutes from Charlottesville — became, in the real estate vocabulary of the era, a discovery. The population that had fallen to as low as 239 in 2000 began, slowly, to recover. New residents arrived, drawn by exactly the qualities that generations of hardship had preserved.</p>
-
-    <p>With them came the dynamics that have reshaped small towns across rural America. New development — the West Village project, a 36-unit residential development approved by a 4-3 council vote — broke ground on the Bird Street corridor. A second Tenaska plant, the Expedition Generating Station at 1,500 megawatts, received approval from the Fluvanna County Board of Supervisors in 2025 over the Planning Commission's recommendation of denial and community objections that the first plant's promised benefits had not materialized.</p>
-
-    <div class="event-marker">
-      <span class="event-year">Present</span>
-      <span class="event-desc">Scottsville's population stands at approximately 543. Its median household income is $46,563 — roughly half of Albemarle County's $104,392 median. Its poverty rate of 14.8% is more than double the county's 7.09%. The vacant tire plant site remains undeveloped after fifteen years. The historic district retains over 150 buildings from multiple centuries of habitation.</span>
-    </div>
-
-    <p>What Scottsville carries into its future is what it has always carried: a community that survived the destruction of its canal, the flooding of its streets, the closure of its factory, and the slow drift of economics away from places like it. The people who stayed through all of that built something that does not appear on any balance sheet. They built the knowledge of who to call when something breaks. They built the slow trust of people who have watched each other struggle and helped each other up.</p>
-
-    <p>The Monacan worshipped the river as a bringer of life. The batteaumen poled their heavy loads through the horseshoe bend in weather that would have stopped lesser people. The families that stayed through twenty-one floods did not do so because the math worked out. They did so because the place was theirs, and leaving felt like a kind of death that flooding never did.</p>
-
-    <p>That continuity is Scottsville's most valuable possession. It is more valuable than the historic district, more valuable than the river view, more valuable than the proximity to Charlottesville. It cannot be purchased. It cannot be replaced. And it is the one thing no outside actor — no cavalry, no flood, no developer with a prospectus — has yet managed to take away.</p>
-
-    <div class="pull-quote">The town didn't leave. That is, in the end, the whole of the story.</div>
-
-  </div>
-</div>
-</section>
-
-</main>
-
-<footer>
-  <div style="max-width:740px;margin:0 auto;padding:0 1.5rem;">
-    <p><strong>Sources</strong></p>
-    <p>Scottsville Museum; Cvillepedia; Virginia Department of Education — Monacan Indian Nation; Encyclopedia Virginia; USGS Water Data / NOAA MARFC Flood Records; Historic Highway Markers (VDHR); Smithsonian Magazine; Civil War Traveler; Fluvanna Review; US Census Bureau ACS 2023; Tenaska Virginia Partners LP; James River Association.</p>
-    <p style="margin-top:1rem; opacity:0.6;">Scottsville, Virginia &mdash; On the James River since before Virginia decided what it was going to be.</p>
-    <p class="footer-links" style="margin-top:0.5rem;">
-      <a href="https://www.facebook.com/groups/scottsvillevirginia" target="_blank">Facebook Group</a>
-    </p>
-  </div>
-</footer>
+  </footer>
 
 </body>
 </html>
