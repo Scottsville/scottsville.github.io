@@ -7,6 +7,72 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    .resource-section {
+      padding: 2rem 0 1.5rem;
+      border-bottom: 1px solid var(--sand-dark);
+    }
+    .resource-section:last-of-type { border-bottom: none; }
+    .resource-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--river-deep);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--rust);
+      display: inline-block;
+    }
+    .resource-card {
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      border-left: 3px solid var(--river-light);
+    }
+    .resource-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--river-deep);
+      margin-bottom: 0.5rem;
+    }
+    .resource-card p {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+    .resource-card p:last-child { margin-bottom: 0; }
+    .resource-meta {
+      font-size: 0.82rem;
+      color: var(--stone);
+      line-height: 1.8;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--sand-dark);
+    }
+    .resource-meta a {
+      color: var(--river);
+      text-decoration: none;
+      border-bottom: 1px solid var(--river-light);
+      transition: color 0.15s;
+    }
+    .resource-meta a:hover { color: var(--rust); }
+    .hours-table {
+      font-size: 0.82rem;
+      color: var(--stone);
+      border-collapse: collapse;
+      margin-top: 0.25rem;
+    }
+    .hours-table td {
+      padding: 0.1rem 1rem 0.1rem 0;
+      vertical-align: top;
+    }
+    .hours-table td:first-child {
+      white-space: nowrap;
+      font-weight: 400;
+      color: var(--ink-soft);
+    }
+  </style>
 </head>
 <body>
 
@@ -38,28 +104,141 @@
     <section class="prose-section">
       <div class="container prose">
 
-        <p class="lead">A practical guide to Scottsville and the surrounding area for newcomers and long-timers alike.</p>
+        <!-- MUSEUMS & LIBRARIES -->
+        <div class="resource-section">
+          <h2>Museums &amp; Libraries</h2>
 
-        <h2>Stay Connected</h2>
-        <ul class="resource-list">
-          <li><a href="https://www.facebook.com/groups/scottsvillevirginia" target="_blank">Scottsville Facebook Group</a> — The most active community forum. Events, news, neighbor-to-neighbor.</li>
-        </ul>
+          <div class="resource-card">
+            <h3>The Scottsville Museum</h3>
+            <p>The Scottsville Museum should be everyone's first stop in town, whether simply visiting or making this town your home. The museum preserves the area's history since before the town's founding and offers exhibits that help tell the story of Scottsville and its people. It also has an impressive archive, some of which is available on their website. Admission is free.</p>
+            <div class="resource-meta">
+              <table class="hours-table">
+                <tr>
+                  <td>Hours:</td>
+                  <td>
+                    10:00 am – 5:00 pm Saturday, April through October<br>
+                    1:00 pm – 5:00 pm Sunday, April through October<br>
+                    Also open Memorial Day, July 4th, and Labor Day, or by appointment.
+                  </td>
+                </tr>
+              </table>
+              <br>
+              290 Main Street, Scottsville, Virginia 24590<br>
+              <a href="https://smuseum.avenue.org/" target="_blank">smuseum.avenue.org</a>
+            </div>
+          </div>
 
-        <h2>Town &amp; Government</h2>
-        <ul class="resource-list">
-          <li><a href="https://www.scottsvilleva.gov" target="_blank">Town of Scottsville Official Site</a></li>
-          <li><a href="https://www.nelson.k12.va.us" target="_blank">Nelson County Schools</a></li>
-        </ul>
+          <div class="resource-card">
+            <h3>Scottsville Public Library</h3>
+            <p>An absolute gem in our little town, and the staff is exceptional. It offers free classes, workshops, children's activities, and so much more.</p>
+            <div class="resource-meta">
+              330 Bird Street #4390, Scottsville, VA 24590<br>
+              <a href="tel:4342863541">(434) 286-3541</a><br>
+              <a href="https://jmrl.org/scottsville" target="_blank">jmrl.org/scottsville</a>
+            </div>
+          </div>
 
-        <h2>Emergency &amp; Services</h2>
-        <ul class="resource-list">
-          <li>Emergency: <strong>911</strong></li>
-          <li>Scottsville Volunteer Fire Department &amp; Rescue Squad</li>
-        </ul>
+          <div class="resource-card">
+            <h3>Fluvanna County Public Library</h3>
+            <p>Offers many wonderful programs for children and adults. Scottsville residents who live in Fluvanna County can obtain a library card for free; those who live in Albemarle County can get one for a small annual fee. Regardless of your address, everyone is welcome to take advantage of their free programs and activities.</p>
+            <div class="resource-meta">
+              214 Commons Boulevard, Palmyra, VA 22963<br>
+              <a href="tel:4345891400">(434) 589-1400</a><br>
+              <a href="https://www2.youseemore.com/fluvanna/default.asp" target="_blank">youseemore.com/fluvanna</a>
+            </div>
+          </div>
 
-        <div class="resource-placeholder">
-          <h2>More Coming</h2>
-          <p><em>This section will be expanded with local businesses, healthcare, churches, civic organizations, and practical newcomer information. If you have a resource to suggest, reach out through the Facebook group.</em></p>
+        </div>
+
+        <!-- PARKS & PLAYGROUNDS -->
+        <div class="resource-section">
+          <h2>Parks &amp; Playgrounds</h2>
+
+          <div class="resource-card">
+            <h3>Dorrier Park</h3>
+            <p>A clean, well-maintained park with a playground, a reservable picnic shelter, two tennis courts, a soccer field, a softball field, a trail, and restrooms. A great place to meet other parents, play some pickleball, or take the dog for a walk along the levee.</p>
+            <div class="resource-meta">
+              250 Page Street, Scottsville, VA 24590<br>
+              <a href="https://www.albemarle.org/Home/Components/FacilityDirectory/FacilityDirectory/54/360" target="_blank">albemarle.org — Dorrier Park</a>
+            </div>
+          </div>
+
+          <div class="resource-card">
+            <h3>Simpson Park</h3>
+            <p>A great park in the Esmont community with a playground, tennis courts, picnic tables, a splash pad, and a public restroom. Dogs are welcome.</p>
+            <div class="resource-meta">
+              2410 Simpson Lane, Esmont, VA 22937
+            </div>
+          </div>
+
+          <div class="resource-card">
+            <h3>Totier Creek Reservoir Park</h3>
+            <p>A tranquil spot on the banks of the reservoir with a boat launch, picnic tables, grills, and restrooms. Dogs are welcome. A great place to take the kids fishing.</p>
+            <div class="resource-meta">
+              9290 Totier Creek Road, Scottsville, VA 24590
+            </div>
+          </div>
+
+          <div class="resource-card">
+            <h3>Canal Basin Square</h3>
+            <p>An outdoor transportation history park on the site of the old James River and Kanawha Canal Turning Basin. It features replicas of the famous batteaux that transported goods along the James River, along with signs, maps, and other information on the history of the town and the importance of the river. Public restrooms available. Dogs are welcome.</p>
+            <p>Canal Basin Square is also the home of Scottsville's <strong>Fridays on the Canal</strong> festival, which runs throughout the summer months.</p>
+            <div class="resource-meta">
+              249 Main Street, Scottsville, VA 24590<br>
+              <a href="https://cbs.avenue.org/" target="_blank">cbs.avenue.org</a><br>
+              Fridays on the Canal schedule: <a href="https://www.scottsvillefridaysonthecanal.com/" target="_blank">scottsvillefridaysonthecanal.com</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- STAY CONNECTED -->
+        <div class="resource-section">
+          <h2>Stay Connected</h2>
+          <div class="resource-card">
+            <h3>Scottsville Facebook Group</h3>
+            <p>The most active community forum for local news, events, neighbor-to-neighbor conversation, and everything else happening in town.</p>
+            <div class="resource-meta">
+              <a href="https://www.facebook.com/groups/scottsvillevirginia" target="_blank">facebook.com/groups/scottsvillevirginia</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOWN & GOVERNMENT -->
+        <div class="resource-section">
+          <h2>Town &amp; Government</h2>
+          <div class="resource-card">
+            <h3>Town of Scottsville</h3>
+            <div class="resource-meta">
+              401 Valley Street, Scottsville, VA 22902<br>
+              <a href="https://www.scottsville.org" target="_blank">scottsville.org</a>
+            </div>
+          </div>
+          <div class="resource-card">
+            <h3>Albemarle County</h3>
+            <div class="resource-meta">
+              <a href="https://www.albemarle.org" target="_blank">albemarle.org</a>
+            </div>
+          </div>
+          <div class="resource-card">
+            <h3>Nelson County Schools</h3>
+            <div class="resource-meta">
+              <a href="https://www.nelson.k12.va.us" target="_blank">nelson.k12.va.us</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMERGENCY -->
+        <div class="resource-section">
+          <h2>Emergency &amp; Services</h2>
+          <div class="resource-card">
+            <h3>Emergency</h3>
+            <p><strong>Call 911</strong></p>
+          </div>
+          <div class="resource-card">
+            <h3>Scottsville Volunteer Fire Department &amp; Rescue Squad</h3>
+            <p>Staffed by volunteers who show up without being asked. If you have time and inclination, they can always use help.</p>
+          </div>
         </div>
 
       </div>
