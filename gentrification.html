@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gentrification & Development — The Bend in the River</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 1.5rem 0;
+    }
+    .phase-card {
+      border-radius: 4px;
+      padding: 1rem 1.1rem;
+      border-top: 3px solid var(--river-light);
+      background: var(--sand);
+    }
+    .phase-card.active { border-top-color: var(--rust); background: #fdf0ea; }
+    .phase-num {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 4px;
+    }
+    .phase-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--river-deep);
+      margin-bottom: 6px;
+    }
+    .phase-card.active .phase-title { color: var(--rust); }
+    .phase-desc {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+    .phase-who {
+      font-size: 0.75rem;
+      color: var(--stone);
+      margin-top: 6px;
+      font-style: italic;
+    }
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin: 1.5rem 0;
+    }
+    .impact-card {
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1rem 1.1rem;
+      border-left: 3px solid var(--river-light);
+    }
+    .impact-card.elderly { border-left-color: #7F77DD; }
+    .impact-card.renters { border-left-color: var(--rust); }
+    .impact-card.minority { border-left-color: #1D9E75; }
+    .impact-card.poor { border-left-color: #BA7517; }
+    .impact-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+      margin-bottom: 5px;
+    }
+    .impact-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--river-deep);
+      margin-bottom: 6px;
+    }
+    .impact-desc {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+    .chart-container {
+      position: relative;
+      margin: 1.5rem 0;
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1.25rem;
+    }
+    .chart-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--river-deep);
+      margin-bottom: 0.25rem;
+    }
+    .chart-sub {
+      font-size: 0.78rem;
+      color: var(--stone);
+      margin-bottom: 1rem;
+    }
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .case-study {
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 1.1rem 1.25rem;
+      margin: 1.25rem 0;
+      border-left: 4px solid var(--rust);
+    }
+    .case-study h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--river-deep);
+      margin-bottom: 0.5rem;
+    }
+    .case-study p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+    .case-study p:last-child { margin-bottom: 0; }
+    .stat-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0.75rem 0;
+    }
+    .stat-chip {
+      background: var(--white);
+      border: 1px solid var(--sand-dark);
+      border-radius: 3px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+    }
+    .stat-chip strong { color: var(--river-deep); }
+    .sources {
+      font-size: 0.75rem;
+      color: var(--stone);
+      border: 1px solid var(--sand-dark);
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-top: 2rem;
+      line-height: 1.7;
+    }
+    .bedroom-list {
+      list-style: none;
+      margin: 0.75rem 0;
+      padding: 0;
+    }
+    .bedroom-list li {
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--sand-dark);
+      line-height: 1.6;
+    }
+    .bedroom-list li:last-child { border-bottom: none; }
+    .bedroom-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--rust);
+    }
+    .warning-box {
+      background: #fdf0ea;
+      border: 1px solid #e8c4a8;
+      border-left: 4px solid var(--rust);
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+    .warning-box strong { color: var(--rust); }
+    @media (max-width: 600px) {
+      .phase-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="index.html" class="nav-home">The Bend in the River</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="today.html">The Town Today</a></li>
+        <li><a href="issues.html" class="active">Issues</a></li>
+        <li><a href="data.html">The Data</a></li>
+        <li><a href="taxes.html">Taxes &amp; Property</a></li>
+        <li><a href="language.html">Learning the Language</a></li>
+        <li><a href="resources.html">Resources</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+
+    <section class="page-hero">
+      <div class="container">
+        <h1>Gentrification &amp; Development</h1>
+        <p class="page-sub">What it is, how it works, who it hurts, and what the road ahead looks like for Scottsville.</p>
+      </div>
+    </section>
+
+    <section class="prose-section">
+      <div class="container prose">
+
+        <p class="lead">Gentrification is not a conspiracy. It doesn't require villains. It is a predictable process with predictable consequences — and recognizing those consequences before they fully arrive is the only opportunity a community has to shape what happens next.</p>
+
+        <p>The term was coined by sociologist Ruth Glass in 1964, observing London neighborhoods where working-class residents were being displaced by wealthier newcomers. Sixty years later the pattern plays out the same way in cities, suburbs, and increasingly in small rural towns within commuting distance of growing urban centers.</p>
+
+        <p>Scottsville sits twenty miles from Charlottesville. Its neighbor Crozet has already completed much of the process. The data tells the story clearly.</p>
+
+        <h2>The Four Phases</h2>
+
+        <div class="phase-grid">
+          <div class="phase-card">
+            <div class="phase-num">Phase One</div>
+            <div class="phase-title">The Pioneers</div>
+            <div class="phase-desc">Artists, academics, remote workers, and back-to-the-landers arrive. Attracted by low costs and authenticity. They integrate honestly, learn neighbors' names, and stabilize declining areas without dramatically changing them.</div>
+            <div class="phase-who">Who gets displaced: Usually nobody yet. Vacant and derelict properties get new life.</div>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">Phase Two</div>
+            <div class="phase-title">Early Gentrifiers</div>
+            <div class="phase-desc">Professional class follows. Higher capital, complete renovations, rising property values. Landlords notice. Rents begin climbing. First renters are displaced. Locally owned businesses begin to be replaced.</div>
+            <div class="phase-who">Who gets displaced: Renters first. Fixed-income homeowners begin feeling assessment increases.</div>
+          </div>
+          <div class="phase-card active">
+            <div class="phase-num">Phase Three — Now</div>
+            <div class="phase-title">Mainstream Wave</div>
+            <div class="phase-desc">Developer-driven new construction. Corporate investment. The original character gets commodified and sold back as an experience. Pioneers are pushed out alongside original residents. This is where Scottsville currently sits.</div>
+            <div class="phase-who">Who gets displaced: Everyone who can't afford the new price floor.</div>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">Phase Four</div>
+            <div class="phase-title">Consolidation</div>
+            <div class="phase-desc">The transformation is complete. Property values have priced out everyone who wasn't already an owner. A simulacrum of the original authenticity remains — farm-to-table restaurants where actual farmers can't afford to eat.</div>
+            <div class="phase-who">Who gets displaced: The community that built the place in the first place.</div>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <strong>Scottsville's situation differs from the traditional model.</strong> Organic gentrification slowly works through existing housing stock before new construction becomes justified. In Scottsville, new development is breaking ground while vacant historic buildings sit untouched — bypassing the organic process entirely. This accelerated, developer-driven model compresses the timeline and reduces the community's ability to adapt or respond.
+        </div>
+
+        <h2>The Crozet Precedent</h2>
+
+        <p>Crozet, Virginia sits fifteen miles northwest of Charlottesville. Twenty-five years ago it was a working-class railroad and orchard town not unlike Scottsville. Albemarle County designated it a growth area. The development followed. The numbers tell the rest.</p>
+
+        <div class="chart-container">
+          <div class="chart-title">Crozet: The Transformation in Numbers</div>
+          <div class="chart-sub">Population, median household income, and median home value, 2000–2024</div>
+          <div class="chart-wrap" style="height: 300px;">
+            <canvas id="crozetChart" role="img" aria-label="Chart showing Crozet population growing from 2,830 in 2000 to over 10,000 in 2026, median household income rising from $46,275 to $129,417, and median home value rising from $107,200 to $602,870.">Crozet population grew from 2,830 in 2000 to 10,052 in 2026. Median household income rose from $46,275 to $129,417. Median home value rose from $107,200 to $602,870.</canvas>
+          </div>
+        </div>
+
+        <div class="case-study">
+          <h3>What the Crozet numbers mean</h3>
+          <div class="stat-row">
+            <span class="stat-chip">Population: <strong>+255%</strong> since 2000</span>
+            <span class="stat-chip">Median income: <strong>+180%</strong> since 2000</span>
+            <span class="stat-chip">Median home value: <strong>+462%</strong> since 2000</span>
+            <span class="stat-chip">Racial composition: <strong>88% White</strong></span>
+          </div>
+          <p>In 2000, Crozet's median household income was $46,275 — comparable to Scottsville's today. In 2024 it is $129,417. The median home value went from $107,200 to $602,870. The people who built Crozet and whose presence made it attractive cannot afford to live there anymore. The town that existed before is gone. What replaced it is attractive, well-maintained, and almost entirely White.</p>
+          <p>Scottsville's median household income today is $46,563. Crozet's was $46,275 in 2000. The mirror is exact.</p>
+        </div>
+
+        <h2>Charlottesville: What Happens to the City Left Behind</h2>
+
+        <p>Gentrification doesn't only transform the town receiving newcomers — it also reshapes the city they're leaving. As Charlottesville's housing costs have risen, lower-income residents have been pushed outward into surrounding communities. Scottsville and similar towns become pressure release valves for Charlottesville's affordability crisis — absorbing the overflow without receiving the resources that would allow them to manage it.</p>
+
+        <div class="case-study">
+          <h3>Charlottesville's displacement crisis</h3>
+          <p>Charlottesville's own affordable housing plan documented the process clearly: rising prices and limited affordable housing options are displacing low-income residents from the city. Black households earn just over half the median income for the city overall. While renters account for 57% of all Charlottesville residents, 76% of Black residents are renters — meaning displacement falls hardest on the community least able to absorb it.</p>
+          <p>Historically Black neighborhoods like Fifeville, 10th and Page, and Starr Hill have already seen rapid appreciation in home and land values and dramatic income and racial change — driven in part by proximity to UVA and the steady expansion of the university's footprint into surrounding neighborhoods.</p>
+          <p>The people displaced from Charlottesville need somewhere to go. Some of them come to Scottsville. But they arrive without the income or political capital of the Charlottesville professionals who follow them — and they arrive into a town that has no policy tools to protect them once they get here.</p>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-title">The Regional Housing Pressure Chain</div>
+          <div class="chart-sub">Median household income comparison across the region, 2023</div>
+          <div class="chart-wrap" style="height: 260px;">
+            <canvas id="incomeChart" role="img" aria-label="Bar chart comparing median household incomes: Scottsville $46,563, Albemarle County $104,392, Crozet $129,417, Virginia $87,249.">Scottsville: $46,563. Albemarle County: $104,392. Crozet: $129,417. Virginia: $87,249.</canvas>
+          </div>
+        </div>
+
+        <h2>Who Gets Hurt — and How</h2>
+
+        <div class="impact-grid">
+          <div class="impact-card elderly">
+            <div class="impact-label">Elderly Homeowners</div>
+            <div class="impact-title">Asset rich, cash poor</div>
+            <div class="impact-desc">Rising property values sound like good news. They're not — if you're on Social Security and have no intention of selling. When assessments rise, so do county property tax bills. The house you've owned for forty years generates a tax burden your pension can't cover. The only way to convert the rising value into cash is to sell — which means leaving the place you've spent your life. That's not a windfall. That's displacement with extra steps.</div>
+          </div>
+          <div class="impact-card renters">
+            <div class="impact-label">Renters</div>
+            <div class="impact-title">No cushion, no recourse</div>
+            <div class="impact-desc">Renters have no equity stake in rising values and no protection against rising rents. When new market-rate units set a higher price floor for the whole rental market, landlords reprice existing units at lease renewal. There's no phase-in, no protection, no notice beyond whatever the lease requires. You pay the new rate or you find somewhere cheaper — which is increasingly nowhere nearby.</div>
+          </div>
+          <div class="impact-card minority">
+            <div class="impact-label">Minority Communities</div>
+            <div class="impact-title">Historical compounding</div>
+            <div class="impact-desc">Gentrification's impact on minority communities is documented extensively in Charlottesville's own housing research. Communities that were historically denied homeownership through redlining and discriminatory lending — and therefore couldn't accumulate the equity that protects owners from displacement — are now the most vulnerable when values rise. The wealth gap that was created by policy gets widened further by the market.</div>
+          </div>
+          <div class="impact-card poor">
+            <div class="impact-label">The Working Poor</div>
+            <div class="impact-title">Priced out of service range</div>
+            <div class="impact-desc">The people who provide the services that make a gentrified community function — cleaning, childcare, landscaping, construction — increasingly cannot afford to live in the communities they serve. The commute burden falls entirely on them. In Charlottesville today, service workers commute from counties that can still accommodate their incomes. As those counties gentrify in turn, the commute lengthens or the worker disappears.</div>
+          </div>
+        </div>
+
+        <h2>The Bedroom Community Problem</h2>
+
+        <p>There is a specific version of gentrification playing out in small towns near growing cities that doesn't fit the traditional urban model exactly. The newcomer doesn't primarily identify with the small town. They live there because it's affordable relative to the city, but their economic life — their groceries, their restaurants, their social connections, their professional identity — remains oriented toward the city they left.</p>
+
+        <p>For Scottsville, this means:</p>
+
+        <ul class="bedroom-list">
+          <li>Grocery dollars leave town. The newcomer shops at Wegman's or Whole Foods on the way home from work in Charlottesville. Scottsville runs on meal tax — over 22% of its total revenue. Every restaurant meal eaten in Charlottesville is revenue Scottsville doesn't collect.</li>
+          <li>New residents add infrastructure costs without proportionally adding revenue. More cars on the road. More demand on water and sewer. More pressure on emergency services. The fiscal math of bedroom community growth is almost never positive for the receiving town.</li>
+          <li>Development gets built for the incoming demographic, not the existing one. West Village is not designed for the family that has lived on Bird Street for three generations. It's designed for the Charlottesville commuter who wants the stroll through the historic district on Sunday morning and a shorter drive to work on Monday.</li>
+          <li>Political influence shifts before the fiscal benefits materialize. New residents vote. As the demographic composition of the electorate changes, the policy priorities change with it — toward the preferences of the newcomers and away from the needs of the people who were here first.</li>
+        </ul>
+
+        <h2>What Scottsville Can Still Do</h2>
+
+        <p>The tools available to Scottsville are limited — Virginia's Dillon Rule means the town can only act where the state has explicitly authorized action, and most of the powerful anti-displacement tools require county or state level action. But some things remain possible:</p>
+
+        <p>The <strong>Albemarle County tax relief programs</strong> for elderly and disabled homeowners can eliminate or substantially reduce property tax bills for qualifying longtime residents. Many who qualify don't know the programs exist. Getting that information to the people who need it is something the community can do right now, before the pressure intensifies. See the <a href="taxes.html">Taxes &amp; Property</a> page for details.</p>
+
+        <p><strong>Showing up to public meetings</strong> matters more than most people think. The West Village approval passed 4-3. One vote. The people who want Scottsville to become the next Crozet are organized, present, and persistent. The people who want it to remain Scottsville need to be the same.</p>
+
+        <p><strong>Documenting what exists</strong> — the community, the history, the people — creates a record that makes invisible displacement visible. Communities that can show what was lost have more standing to argue for what should be protected.</p>
+
+        <div class="sources">
+          <strong>Sources:</strong> US Census Bureau ACS 2023; City-Data.com (Crozet historical data); World Population Review; Charlottesville Affordable Housing Plan (2021); Virginia Review of Politics — Gentrification in Charlottesville; UVA School of Law — Gentrification Raises Local Home Prices; Local Housing Solutions — Charlottesville Zoning Reform; Charlottesville Housing Coalition Letter (2023); Ruth Glass, <em>London: Aspects of Change</em> (1964).
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Scottsville, Virginia &mdash; Population 600-something &mdash; On the James River since before Virginia decided what it was going to be.</p>
+      <p class="footer-links">
+        <a href="https://www.facebook.com/groups/scottsvillevirginia" target="_blank">Facebook Group</a>
+      </p>
+    </div>
+  </footer>
+
+<script>
+const gridColor = 'rgba(0,0,0,0.06)';
+const labelColor = '#7a6e62';
+
+// Crozet transformation chart
+new Chart(document.getElementById('crozetChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2000', '2010', '2020', '2024'],
+    datasets: [
+      {
+        label: 'Population',
+        data: [2830, 5565, 7191, 10052],
+        backgroundColor: '#2c4a5a',
+        borderRadius: 3,
+        yAxisID: 'yPop',
+      },
+      {
+        label: 'Median household income',
+        data: [46275, 68608, 98000, 129417],
+        backgroundColor: '#1D9E75',
+        borderRadius: 3,
+        yAxisID: 'yIncome',
+      },
+      {
+        label: 'Median home value',
+        data: [107200, 280000, 430000, 602870],
+        backgroundColor: '#D85A30',
+        borderRadius: 3,
+        yAxisID: 'yIncome',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        labels: { color: labelColor, font: { size: 11 }, boxWidth: 12 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            if (ctx.dataset.yAxisID === 'yIncome') return ' $' + ctx.parsed.y.toLocaleString();
+            return ' ' + ctx.parsed.y.toLocaleString() + ' people';
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: labelColor, font: { size: 11 } } },
+      yPop: {
+        type: 'linear', position: 'left',
+        grid: { color: gridColor },
+        ticks: { color: labelColor, font: { size: 11 }, callback: v => v.toLocaleString() },
+        title: { display: true, text: 'Population', color: labelColor, font: { size: 11 } }
+      },
+      yIncome: {
+        type: 'linear', position: 'right',
+        grid: { drawOnChartArea: false },
+        ticks: { color: labelColor, font: { size: 11 }, callback: v => '$' + Math.round(v/1000) + 'k' },
+        title: { display: true, text: 'Income / Home Value', color: labelColor, font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// Regional income comparison
+new Chart(document.getElementById('incomeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Scottsville', 'Virginia', 'Albemarle Co.', 'Crozet (2024)'],
+    datasets: [{
+      data: [46563, 87249, 104392, 129417],
+      backgroundColor: ['#D85A30', '#888780', '#2c4a5a', '#1D9E75'],
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.x.toLocaleString() } }
+    },
+    scales: {
+      x: {
+        grid: { color: gridColor },
+        ticks: { color: labelColor, font: { size: 11 }, callback: v => '$' + Math.round(v/1000) + 'k' },
+        beginAtZero: true, max: 150000
+      },
+      y: { grid: { display: false }, ticks: { color: labelColor, font: { size: 12 } } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
