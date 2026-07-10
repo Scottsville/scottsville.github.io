@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scottsville at the Crossroads</title>
+<meta name="description" content="A history, a warning, and a choice — who gets to stay when a small Virginia town becomes desirable.">
+
+<!-- Open Graph / social share preview -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scottsville at the Crossroads">
+<meta property="og:description" content="Growth and gentrification are not the same argument. Here's the difference, told through Scottsville's own numbers.">
+<meta property="og:image" content="og-image.png">
+<meta property="og:url" content="https://scottsville.github.io/crossroads.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scottsville at the Crossroads">
+<meta name="twitter:description" content="Growth and gentrification are not the same argument.">
+<meta name="twitter:image" content="og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --river-deep:#1a2e38; --river:#2c4a5a; --river-light:#4a7a8a;
+    --rust:#8b4a2a; --rust-light:#c98a5e;
+    --moss:#4a6741; --moss-deep:#33422c; --moss-light:#a8c39e;
+    --sand:#f5f0e8; --sand-dark:#e8dfc8; --cream:#faf7f2;
+    --ink:#1e1e1e; --stone:#7a6e62;
+    --serif: 'Playfair Display', Georgia, serif;
+    --body: 'Crimson Pro', Georgia, serif;
+    --maxw: 780px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:var(--body); font-size:19px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none !important; transition:none !important;} }
+
+  h1,h2,h3{ font-family:var(--serif); font-weight:700; line-height:1.15; color:var(--river-deep); margin:0 0 .4em; }
+  a{ color:var(--rust); }
+  a:focus-visible, button:focus-visible, summary:focus-visible{ outline:3px solid var(--rust); outline-offset:2px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+  .eyebrow{ font-family:var(--body); text-transform:uppercase; letter-spacing:.14em; font-size:13px; font-weight:600; color:var(--river-light); }
+
+  /* ---- Top bar ---- */
+  header.topbar{
+    position:sticky; top:0; z-index:50; background:rgba(26,46,56,.96); backdrop-filter:blur(6px);
+    color:var(--sand); padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid rgba(245,240,232,.12);
+  }
+  .topbar .brand{ font-family:var(--serif); font-weight:700; font-size:16px; color:#fff; text-decoration:none; letter-spacing:.02em; }
+  .topbar nav{ display:none; }
+  .menu-btn{ background:none; border:1px solid rgba(245,240,232,.3); color:var(--sand); font-family:var(--body); font-size:15px; padding:6px 14px; border-radius:20px; cursor:pointer; }
+  #navpanel{ display:none; position:fixed; inset:0; background:var(--river-deep); z-index:60; padding:80px 32px 32px; overflow-y:auto; }
+  #navpanel.open{ display:block; }
+  #navpanel a{ display:block; color:var(--sand); font-family:var(--serif); font-size:24px; text-decoration:none; padding:12px 0; border-bottom:1px solid rgba(245,240,232,.12); }
+  .close-btn{ position:fixed; top:16px; right:20px; background:none; border:none; color:var(--sand); font-size:32px; z-index:70; cursor:pointer; line-height:1; }
+  @media (min-width:820px){
+    .topbar nav{ display:flex; gap:22px; }
+    .topbar nav a{ color:var(--sand); text-decoration:none; font-size:14px; letter-spacing:.03em; }
+    .topbar nav a:hover{ color:#fff; }
+    .menu-btn{ display:none; }
+  }
+
+  /* ---- Hero ---- */
+  .hero{ background:var(--river-deep); color:#fff; padding:72px 0 64px; position:relative; overflow:hidden; }
+  .hero::after{ content:""; position:absolute; left:-10%; right:-10%; bottom:-40px; height:140px;
+    background:radial-gradient(ellipse at 30% 100%, rgba(74,122,138,.35), transparent 60%),
+               radial-gradient(ellipse at 75% 100%, rgba(139,74,42,.3), transparent 60%); }
+  .hero .wrap{ position:relative; }
+  .hero h1{ color:#fff; font-size:clamp(38px,8vw,58px); margin:.25em 0 .3em; }
+  .hero p.lede{ font-size:21px; color:var(--sand); max-width:34ch; }
+  .hero .eyebrow{ color:var(--river-light); }
+
+  /* ---- Sections ---- */
+  section{ padding:60px 0; }
+  section.alt{ background:var(--sand); }
+  section.dark{ background:var(--river-deep); color:var(--sand); }
+  section.dark h2, section.dark h3{ color:#fff; }
+  section.rust-tint{ background:var(--cream); }
+  h2{ font-size:clamp(26px,5vw,34px); }
+  h2 + p.dek{ font-size:20px; color:var(--stone); font-style:italic; margin-top:-.3em; margin-bottom:1.2em; }
+  section.dark p.dek{ color:var(--river-light); }
+  p{ margin:0 0 1.1em; }
+
+  /* ---- Signature stat moment ---- */
+  .statmoment{ background:var(--river-deep); color:#fff; padding:80px 0; text-align:center; }
+  .statmoment .bignum{ font-family:var(--serif); font-weight:900; font-size:clamp(90px,26vw,180px); line-height:.85; margin:0; }
+  .statmoment .bignum.rust{ color:var(--rust-light); }
+  .statmoment .bignum.moss{ color:var(--moss-light); }
+  .statgrid{ display:grid; grid-template-columns:1fr; gap:36px; }
+  @media(min-width:700px){ .statgrid{ grid-template-columns:1fr 1fr; } }
+  .statlabel{ font-size:17px; color:var(--sand); max-width:30ch; margin:8px auto 0; }
+
+  /* ---- Cards ---- */
+  .cardgrid{ display:grid; grid-template-columns:1fr; gap:18px; margin-top:24px; }
+  @media(min-width:680px){ .cardgrid.two{ grid-template-columns:1fr 1fr; } }
+  .card{ background:var(--cream); border-radius:10px; padding:24px 22px; border:1px solid var(--sand-dark); }
+  .card.moss{ background:#e6ebe3; border-color:#cdd9c7; }
+  .card.rust{ background:#f2e3dc; border-color:#e3c7b4; }
+  .card h3{ font-size:20px; margin-bottom:.5em; }
+  .card.moss h3{ color:var(--moss-deep); }
+  .card.rust h3{ color:var(--rust); }
+  .card p{ font-size:17px; margin-bottom:0; color:var(--ink); }
+
+  /* ---- Bar chart (pure CSS) ---- */
+  .chart{ margin:22px 0 8px; }
+  .chart-title{ font-weight:600; font-size:15px; color:var(--stone); margin-bottom:10px; }
+  .bar-row{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .bar-label{ width:108px; flex-shrink:0; font-size:14px; color:var(--stone); text-align:right; }
+  .bar-track{ flex:1; background:var(--sand-dark); border-radius:5px; height:30px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:5px 0 0 5px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px; color:#fff; font-weight:600; font-size:14px; font-family:var(--body); }
+  .bar-fill.rust{ background:var(--rust); }
+  .bar-fill.river{ background:var(--river); }
+
+  /* ---- Timeline ---- */
+  .tl-item{ display:flex; gap:18px; margin-bottom:22px; align-items:flex-start; }
+  .tl-year{ flex-shrink:0; width:92px; font-family:var(--serif); font-weight:700; color:var(--rust); font-size:18px; padding-top:2px; }
+  .tl-text{ font-size:17px; }
+
+  /* ---- Definition rows (Plan) ---- */
+  .toolrow{ padding:14px 0; border-bottom:1px solid var(--sand-dark); }
+  .toolrow dt{ font-family:var(--serif); font-weight:700; color:var(--rust); font-size:17px; }
+  .toolrow dd{ margin:.25em 0 0; font-size:16px; color:var(--ink); }
+  details.plangroup{ margin-bottom:14px; background:var(--cream); border-radius:10px; padding:4px 20px; border:1px solid var(--sand-dark); }
+  details.plangroup summary{ cursor:pointer; font-family:var(--serif); font-weight:700; font-size:19px; color:var(--river-deep); padding:16px 0; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+  details.plangroup summary::-webkit-details-marker{ display:none; }
+  details.plangroup summary::after{ content:"+"; font-size:26px; color:var(--rust); }
+  details.plangroup[open] summary::after{ content:"–"; }
+  details.plangroup dl{ padding-bottom:12px; }
+
+  .allylist{ columns:1; }
+  @media(min-width:680px){ .allylist{ columns:2; column-gap:28px; } }
+  .allyitem{ break-inside:avoid; margin-bottom:14px; font-size:15.5px; }
+  .allyitem b{ color:var(--rust); font-family:var(--body); }
+
+  .pullquote{ font-family:var(--serif); font-style:italic; font-weight:600; font-size:24px; color:var(--river-deep); border-left:4px solid var(--rust); padding-left:20px; margin:28px 0; }
+  section.dark .pullquote{ color:#fff; border-color:var(--rust-light); }
+
+  .closer{ background:var(--river-deep); color:#fff; padding:80px 0; text-align:center; }
+  .closer .pullquote{ border:none; padding:0; font-size:28px; max-width:26ch; margin:0 auto 28px; color:#fff; }
+  .cta{ display:inline-block; background:var(--rust); color:#fff; font-family:var(--body); font-weight:600; text-decoration:none; padding:14px 30px; border-radius:30px; font-size:17px; }
+
+  footer.sitefoot{ background:var(--river-deep); color:var(--river-light); padding:30px 0 50px; text-align:center; font-size:14px; }
+  footer.sitefoot a{ color:var(--sand); }
+
+  .srcnote{ font-size:13px; color:var(--stone); margin-top:6px; }
+  section.dark .srcnote{ color:var(--river-light); }
+
+  .skip-link{ position:absolute; left:-999px; top:0; background:#fff; padding:10px 16px; z-index:100; }
+  .skip-link:focus{ left:16px; top:16px; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="topbar">
+  <a href="#" class="brand">Scottsville at the Crossroads</a>
+  <nav aria-label="Section navigation">
+    <a href="#thesis">The Argument</a>
+    <a href="#history">History</a>
+    <a href="#reality">Reality Check</a>
+    <a href="#research">Research</a>
+    <a href="#plan">The Plan</a>
+  </nav>
+  <button class="menu-btn" id="menuOpen" aria-expanded="false" aria-controls="navpanel">Menu</button>
+</header>
+
+<div id="navpanel">
+  <button class="close-btn" id="menuClose" aria-label="Close menu">×</button>
+  <a href="#thesis">The Argument</a>
+  <a href="#history">History</a>
+  <a href="#reality">Reality Check</a>
+  <a href="#research">Research</a>
+  <a href="#plan">The Plan</a>
+  <a href="#sources">Sources</a>
+</div>
+
+<main id="main">
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Scottsville, Virginia</div>
+      <h1>Scottsville at the Crossroads</h1>
+      <p class="lede">Who gets to stay when a small town becomes desirable — told through the town's own history, its own numbers, and the county's own plan.</p>
+    </div>
+  </div>
+
+  <section id="thesis">
+    <div class="wrap">
+      <div class="eyebrow">The Argument</div>
+      <h2>Growth and Gentrification Are Not the Same Argument</h2>
+      <p class="dek">A vocal minority of new arrivals says Scottsville "needs growth and development." Almost nobody asks: growth for whom, on whose terms?</p>
+      <p>The pro-growth case is real, and worth taking seriously. A whole housing region needs more supply somewhere, or prices rise everywhere — that's a mainstream, defensible argument. But it's an argument for building where the infrastructure and tax base already exist. As the numbers below show, that was never supposed to be Scottsville.</p>
+
+      <div class="cardgrid two">
+        <div class="card moss">
+          <h3>Growth</h3>
+          <p>New housing and jobs the people already here can actually access. Tax revenue the town itself captures and controls. A larger community built around the one that exists, not instead of it.</p>
+        </div>
+        <div class="card rust">
+          <h3>Gentrification</h3>
+          <p>New housing priced for people who aren't here yet. Tax revenue that flows to the county, not the town. A replacement community — Crozet's population didn't grow around its 2000 residents, it grew past them.</p>
+        </div>
+      </div>
+      <p class="pullquote">The test isn't whether the numbers go up. It's whether the people already here are still standing where they started when they do.</p>
+    </div>
+  </section>
+
+  <div class="statmoment">
+    <div class="wrap">
+      <div class="eyebrow" style="color:var(--river-light)">Albemarle County's own Comprehensive Plan</div>
+      <div class="statgrid">
+        <div>
+          <p class="bignum moss">5%</p>
+          <p class="statlabel">of the county's land is Designated Growth Area — the Charlottesville urban ring, Crozet, Pantops, Village of Rivanna. This is where the plan directs new density.</p>
+        </div>
+        <div>
+          <p class="bignum rust">95%</p>
+          <p class="statlabel">is Rural Area, where the county's stated policy is to <em>discourage</em> new development. Scottsville sits inside this 95%. It has never been a Designated Growth Area, unlike Crozet.</p>
+        </div>
+      </div>
+      <p style="max-width:520px;margin:40px auto 0;font-size:16px;color:var(--sand)">A live exception is being written in: Albemarle's newest plan (AC44, Oct. 2025) includes contested language letting Rural Area land get swapped into Growth Area status. Scottsville's own district supervisor said the mechanism "is not quite ready" but expects it to move forward.</p>
+    </div>
+  </div>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="eyebrow">The Argument, continued</div>
+      <h2>A Real Government, With No Vote Where It Matters Most</h2>
+      <p class="dek">Scottsville is the one place in the county with its own elected mayor and town council. Crozet has neither.</p>
+      <dl>
+        <div class="toolrow"><dt>Inside town limits, real power gets used</dt><dd>West Village is proof: Scottsville's own council approved it directly, on a divided 4–3 vote, with the mayor breaking the tie twice — and rejected a different nearby proposal (205 apartments in the old tire plant) 4–2 the same year. That's real authority, exercised both ways.</dd></div>
+        <div class="toolrow"><dt>Outside town limits, the town has no vote at all</dt><dd>The Growth Area / Rural Area boundary itself is set entirely by Albemarle's Comprehensive Plan. Scottsville's council has no formal vote on where that line gets drawn.</dd></div>
+        <div class="toolrow"><dt>The board seat is the same for everyone</dt><dd>The county's six-member Board of Supervisors gives Scottsville exactly one seat. Crozet, with no town government at all, gets the identical one seat.</dd></div>
+      </dl>
+      <p class="pullquote">Real power exists inside town limits, and the council uses it. It's the decisions made past the town line — by the county, with no town vote at all — that actually set the pressure Scottsville is under.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">The Argument, continued</div>
+      <h2>Two Kinds of Newcomer</h2>
+      <p class="dek">It was never really about how long someone's lived here. It's about what they risked to arrive.</p>
+      <div class="cardgrid two">
+        <div class="card moss">
+          <h3>The Pioneer</h3>
+          <p>Comes for affordability, not amenity. Lives in the same worn housing stock and flood risk as everyone already here. Invests sweat equity, not capital. Often ends up displaced too, once their own presence closes the gap that drew them.</p>
+        </div>
+        <div class="card rust">
+          <h3>The Buyer</h3>
+          <p>Comes for a finished product, move-in ready, nothing left to absorb. The HOA is the point — insulation from the unpredictability everyone else shares. Consumes the town's character as a backdrop, not a relationship.</p>
+        </div>
+      </div>
+      <p class="pullquote">The pioneer can become a contributor, because arriving required risk and proximity to what already existed. The buyer structurally can't — the whole product they purchased was engineered to remove that friction.</p>
+    </div>
+  </section>
+
+  <section id="history" class="alt">
+    <div class="wrap">
+      <div class="eyebrow">History</div>
+      <h2>A River Town, Contested Since Its Founding</h2>
+      <p class="dek">Scottsville has never had the luxury of being settled. It's been fought over, flooded out, and rebuilt for nearly three centuries.</p>
+
+      <div class="tl-item"><div class="tl-year">1744</div><div class="tl-text">Founded as Scott's Landing, when Albemarle County's courthouse was sited here — Edward Scott's own house served as the temporary courthouse.</div></div>
+      <div class="tl-item"><div class="tl-year">1865</div><div class="tl-text">Union cavalry under Gen. Sheridan burned Scottsville in March, near the war's end. The same year, Union Baptist Church was organized on Hardware Road for Black worship — founded by a community that had almost certainly been enslaved in or near Scottsville itself, choosing to stay and build as free people.</div></div>
+      <div class="tl-item"><div class="tl-year">1870–</div><div class="tl-text">Twenty-one major floods since. The worst: Hurricane Camille, August 1969 — the James crested at 30.5 feet, water reached the second story on Main Street. The 1985 Election Day flood put twelve feet through Bruce's Drugstore, the same store, twice in one generation.</div></div>
+      <div class="tl-item"><div class="tl-year">1944–2004</div><div class="tl-text">A factory anchored the local economy for sixty years, then closed — taking jobs and tax revenue with it.</div></div>
+      <div class="tl-item"><div class="tl-year">Today</div><div class="tl-text">543 residents inside town limits — 6.7% Black. Esmont, immediately adjacent and part of the same functional community, is 46.4% Black. The town-limits count hides how Black the wider community actually is.</div></div>
+
+      <p>Archival collections documenting Central Virginia history record "the slave market around Scottsville" directly — the town was an active point of the slave trade, not a bystander to it. Virginia's enslaved population reached roughly 40% of the state's total by the late 1700s. The Black families in and around Scottsville today are, in the overwhelming majority of cases, the direct descendants of people enslaved in this region — a lineage that runs deeper here than almost anyone currently in town government, or any newcomer drawn by the river views.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">A Town That's Already Been Through This</div>
+      <h2>What Replacement Looks Like — Crozet, Virginia</h2>
+      <p class="dek">25 miles northwest. It didn't choose its outcome either. It's not Scottsville's destiny yet — but it shows where the road leads.</p>
+      <div class="chart">
+        <div class="chart-title">Crozet population, 2000–2025</div>
+        <div class="bar-row"><div class="bar-label">2000</div><div class="bar-track"><div class="bar-fill rust" style="width:29%"><span>2,800</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">2010</div><div class="bar-track"><div class="bar-fill rust" style="width:57%"><span>5,565</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">2020</div><div class="bar-track"><div class="bar-fill rust" style="width:95%"><span>9,224</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">2025 (est.)</div><div class="bar-track"><div class="bar-fill rust" style="width:100%"><span>9,700</span></div></div></div>
+      </div>
+      <p>Median home value: <strong>$526,100</strong>. Median household income: <strong>$121,153</strong> — nearly 4x Scottsville's per-capita figure. Population that is White: <strong>89.6%</strong>, in a county far more diverse overall.</p>
+      <p class="pullquote">The town wasn't saved. It was replaced — and the people who couldn't afford the new prices aren't in these numbers anymore, because they aren't here.</p>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="eyebrow">This Isn't Only a Black-and-White Story</div>
+      <h2>Teton County, Idaho</h2>
+      <p class="dek">86% white, Mormon ranching families, zero racial framing needed.</p>
+      <p>A century-old ranching and farming community at the base of the Grand Tetons, settled largely by Mormon homesteaders — agriculture was 45% of all county jobs as recently as 1970. Population grew <strong>87%</strong> in the 1990s alone, driven by wealthy "amenity migrants" priced out of nearby Jackson Hole, Wyoming, and by second-home buyers from California. Median home value rose <strong>71%</strong> in a decade. Cost-burdened households nearly doubled. Homes under $100,000 fell by <strong>44%</strong> — while homes over $1 million went from zero to nine. New mansions were built directly next to decades-old mobile home parks, the only affordable housing left — a visible, physical line between who arrived and who was already there.</p>
+      <p class="pullquote">"They move here because they want to get away from the city life, but when they get here they want to change things to make them like the city. It makes no sense!" — a longtime Teton County rancher</p>
+      <p>The federal Housing Assistance Council's own research on rural gentrification puts the pattern plainly: rural displacement runs on "less race, more class" than the urban version — the same mechanism, minus the racial framing some readers switch off for.</p>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="eyebrow">Where Scottsville Stands</div>
+      <h2>Not Yet Replaced. But the Pressure Is Already Visible.</h2>
+      <div class="chart">
+        <div class="chart-title">Poverty rate</div>
+        <div class="bar-row"><div class="bar-label">Scottsville</div><div class="bar-track"><div class="bar-fill rust" style="width:100%"><span>14.8%</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">Albemarle Co.</div><div class="bar-track"><div class="bar-fill river" style="width:60%"><span>8.8%</span></div></div></div>
+      </div>
+      <div class="chart">
+        <div class="chart-title">Per capita income</div>
+        <div class="bar-row"><div class="bar-label">Scottsville</div><div class="bar-track"><div class="bar-fill rust" style="width:66%"><span>$33,835</span></div></div></div>
+        <div class="bar-row"><div class="bar-label">Cville Metro</div><div class="bar-track"><div class="bar-fill river" style="width:100%"><span>$51,510</span></div></div></div>
+      </div>
+      <p class="pullquote">Scottsville runs roughly 1.7x the county's poverty rate on two-thirds the income — exactly the condition that has preceded gentrification pressure elsewhere in the region.</p>
+    </div>
+  </section>
+
+  <section id="reality">
+    <div class="wrap">
+      <div class="eyebrow">Reality Check</div>
+      <h2>What "Revitalization" Actually Delivers</h2>
+      <p class="dek">West Village is under construction now, on Scottsville's own doorstep.</p>
+      <dl>
+        <div class="toolrow"><dt>What it promises</dt><dd>New housing addressing population decline, a larger local tax base, alignment with county growth targets.</dd></div>
+        <div class="toolrow"><dt>What it's delivered</dt><dd>A construction workforce that commutes in and goes home elsewhere — no hiring pipeline into the town.</dd></div>
+        <div class="toolrow"><dt>Where the money goes</dt><dd>Property tax revenue on the new homes flows to Albemarle County, not Scottsville — the same arrangement that's sent tax dollars to the county for over fifty years.</dd></div>
+        <div class="toolrow"><dt>What "affordable" actually means here</dt><dd>Southern Development's own listings start at <strong>$499,900</strong>, with units sold as high as <strong>$569,900</strong> — against a town per-capita income of $33,835. That gap is why the developer's own "affordable" framing got mocked publicly when it appeared.</dd></div>
+      </dl>
+      <p class="pullquote">Already next in line: East Village, the same developer's follow-on proposal for 45 more homes on 150 acres, is zoned residential already — meaning it skips the public hearing and Town Council vote West Village required entirely.</p>
+
+      <h3 style="margin-top:36px">"Affordable Housing" Doesn't Mean Housing for Scottsville</h3>
+      <p>Scottsville School Apartments — 34 units, constantly cited as proof the town does its part — is run by the Albemarle County Office of Housing and Piedmont Housing Alliance, headquartered in Charlottesville. Preferences go to homelessness, anyone who lives or works in Albemarle County, veterans, and domestic violence survivors. <strong>There is no Scottsville-resident preference at all.</strong> The most recent round filled by lottery. And because Scottsville straddles both Albemarle and Fluvanna counties, a poor family on the Fluvanna side of town doesn't even qualify for a building sitting inside their own town limits.</p>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap">
+      <div class="eyebrow" style="color:var(--river-light)">The Ledger</div>
+      <h2>Who Actually Built This Town</h2>
+      <div class="cardgrid two">
+        <div class="card" style="background:#22403f;border-color:#345450;">
+          <h3 style="color:#9fd4a8">Gave, without being asked</h3>
+          <p style="color:var(--sand)">All-volunteer fire department since 1936. First-due EMS reaching into Fluvanna, Buckingham & Nelson Counties. Church networks. Neighbor-to-neighbor mutual aid after every flood. No payroll ever left town. No tax abatement was ever requested.</p>
+        </div>
+        <div class="card" style="background:#4a2a1f;border-color:#63392a;">
+          <h3 style="color:#e8b8a0">Took, while promising to give</h3>
+          <p style="color:var(--sand)">A power plant taxed in Fluvanna, not Scottsville. A 1970s handshake deal trading levee protection for the town's own tax base — still in force. New development whose revenue flows to Albemarle. Sixty years of factory jobs, gone in one closure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark" id="research">
+    <div class="wrap">
+      <div class="eyebrow" style="color:var(--river-light)">What Displacement Actually Does</div>
+      <h2>What "Cheaper" Actually Means</h2>
+      <p class="dek" style="color:var(--river-light)">Displacement isn't a single event. It's a chain, and every link makes the next one worse.</p>
+
+      <div style="margin-top:20px">
+        <p><strong style="color:#e8b8a0;font-family:var(--serif);font-size:19px">Priced out.</strong><br>It doesn't start with an eviction notice. It starts with a tax reassessment, a rent renewal with a number that wasn't there last year, a For Sale sign on the house next door. Nobody has to do anything wrong for this to happen. The math just stops working.</p>
+
+        <p><strong style="color:#e8b8a0;font-family:var(--serif);font-size:19px">The search for "cheaper."</strong><br>Cheaper is never a neutral word. There's no cheaper version of the town you already know — cheaper means somewhere else, somewhere the same pressure hasn't arrived yet. You don't choose the next place. The next place is just wherever your number still fits.</p>
+
+        <p><strong style="color:#e8b8a0;font-family:var(--serif);font-size:19px">What gets left behind.</strong><br>The neighbor who watches your kids for free isn't in the new place. Neither is the mechanic who lets you pay him next week, the church that shows up with a casserole and a ride to chemo, the school where a teacher has known your family for three generations. None of it moves with you. It took decades to build and it doesn't fit in a truck.</p>
+
+        <p><strong style="color:#e8b8a0;font-family:var(--serif);font-size:19px">Cheaper means poorer.</strong><br>The place with room for your budget has room because it's already carrying more than it can hold. Fewer jobs nearby. A longer drive to the doctor. A school with less funding per student, not more. You didn't move down in the world by choice. You moved to wherever still had space.</p>
+
+        <p><strong style="color:#e8b8a0;font-family:var(--serif);font-size:19px">The community that receives you has less to give.</strong><br>That town isn't a blank slate waiting for new neighbors — it's already stretched thin, absorbing everyone else this same math pushed out of somewhere else this year. Two communities end up with less: the one that lost you, and the one now stretched further to hold everyone displacement sent its way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="research2">
+    <div class="wrap">
+      <div class="eyebrow">The Research</div>
+      <h2>Fragile First: Who Actually Gets Displaced</h2>
+      <p class="dek">Displacement doesn't hit a community evenly. It hits the parts of it with the least cushion first.</p>
+      <dl>
+        <div class="toolrow"><dt>Less accumulated wealth to absorb a shock</dt><dd>Generations of exclusion from homeownership and lending mean Black families here typically have far less financial cushion to weather a rent increase or tax reassessment.</dd></div>
+        <div class="toolrow"><dt>Networks that took generations to build</dt><dd>A church founded in 1865, a family on the same land for six generations — these aren't easily rebuilt elsewhere. One household priced out frays the network for everyone still there.</dd></div>
+        <div class="toolrow"><dt>Nowhere comparable to land</dt><dd>Displaced low-income Black residents are typically pushed not into a similar neighborhood, but a poorer one — further from jobs, transit, and the community they came from.</dd></div>
+      </dl>
+
+      <h3 style="margin-top:36px">What the Research Says</h3>
+      <p><strong>Displacement isn't just moving.</strong> "Exclusionary displacement" describes residents who aren't formally evicted but simply can't afford to stay — rising costs do the work eviction notices used to. A 2025 study found older Black residents report significantly higher fear of displacement even when they remain in place — researchers call this fear itself a health stressor, with roots in structural racism including historical redlining.</p>
+      <p><strong>The toll on mental health is measurable.</strong> Residents in gentrifying tracts report more psychological distress than those in stable neighborhoods, concentrated among Black and Latino residents. Displaced residents show more emergency visits and hospitalizations for mental health than residents who stayed. Older Black residents report social isolation from the displacement of family and friends around them, even when never displaced themselves.</p>
+      <p><strong>Housing instability compounds family strain.</strong> Sociologist Matthew Desmond's decade of eviction research found eviction is a cause of poverty, not just a symptom — triggering job loss and depression measured two years later. Between 2004 and 2010, as housing costs surged nationally, suicides attributed to forced housing displacement doubled. Worth stating plainly: critics note eviction often correlates with hardships that predate it, rather than single-handedly causing them — the honest reading is that instability compounds existing vulnerability, rarely the sole cause.</p>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="eyebrow">The Stakes</div>
+      <h2>Who Will Profit, Who Will Lose</h2>
+      <p class="dek">This is the question every other section here is really asking.</p>
+      <p>Economists call it the "homevoter" effect (Fischel, 2001): when the people voting on development also own homes that development will make more valuable, their financial interest and their public duty point the same direction — whether or not any individual acts in bad faith. That's a structural fact of small-town governance, not an accusation against any one person.</p>
+      <div class="cardgrid two">
+        <div class="card moss"><h3>Who profits</h3><p>Landowners who sell to developers. Homeowners whose values rise nearby. Developers and their investors. Albemarle's tax base, if the revenue flows there.</p></div>
+        <div class="card rust"><h3>Who loses</h3><p>Renters, who see costs rise with nothing to sell. Long-term low-income homeowners, taxed on paper wealth they can't spend without leaving. Anyone priced out of a market that never asked what they could afford.</p></div>
+      </div>
+      <p style="font-size:15px;color:var(--stone);font-style:italic">The margin is already this thin: West Village itself passed on a 3–3 council tie, broken by the mayor — twice, across both the rezoning and the permit vote.</p>
+      <p class="pullquote">If your home value quadruples like Crozet's did, the only way a longtime resident actually captures that gain is to sell and leave. The only winning move available to the people this town belongs to is to stop being here.</p>
+    </div>
+  </section>
+
+  <section id="plan" class="dark">
+    <div class="wrap">
+      <div class="eyebrow" style="color:var(--river-light)">The Plan</div>
+      <h2>None of This Is Hypothetical</h2>
+      <p class="dek" style="color:var(--river-light)">Every tool below is legally available to Scottsville today. Tap each section to open it.</p>
+
+      <details class="plangroup" style="background:var(--river);border-color:#345a6b;">
+        <summary style="color:#fff">Tools the town can use now</summary>
+        <dl>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Architectural review board</dt><dd style="color:var(--sand)">Real authority to reject designs that clash with the town's historic character, not just rubber-stamp them.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Updated comprehensive plan</dt><dd style="color:var(--sand)">The town's own current, defensible plan is its strongest legal footing against county-level decisions.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Adequate Public Facilities Ordinance</dt><dd style="color:var(--sand)">Ties new approvals to whether roads, schools, water and sewer can actually handle them.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Historic properties documentation</dt><dd style="color:var(--sand)">Formal listing makes demolition and insensitive redevelopment slower and harder.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Traffic impact studies</dt><dd style="color:var(--sand)">Requires developers to prove the roads can handle it before approval.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Strategic downsizing</dt><dd style="color:var(--sand)">Right-sizing town infrastructure deliberately, rather than assuming growth is the only path.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Impact fees</dt><dd style="color:var(--sand)">Charges developers directly for the real cost their project adds.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Proffer system</dt><dd style="color:var(--sand)">Virginia's own tool — developers offer cash or improvements for rezoning approval.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Sewage capacity studies</dt><dd style="color:var(--sand)">Establishes a hard, technical ceiling on how much growth infrastructure can support.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Zoning updates</dt><dd style="color:var(--sand)">Rewrites the town's code to reflect what residents actually want protected.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Property tax relief</dt><dd style="color:var(--sand)">Protects longtime low-income homeowners from being forced to sell to afford staying.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Right of first refusal</dt><dd style="color:var(--sand)">Gives tenants, owners, or the town first opportunity to buy before outside investors.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Rental registration & standards</dt><dd style="color:var(--sand)">Brings absentee landlords under enforceable town oversight.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Community land trust</dt><dd style="color:var(--sand)">Permanently affordable housing, insulated from market appreciation.</dd></div>
+          <div class="toolrow" style="border-color:none"><dt style="color:var(--rust-light)">Transfer of development rights</dt><dd style="color:var(--sand)">Lets a landowner sell development rights to a receiving site elsewhere, preserving the original land.</dd></div>
+        </dl>
+      </details>
+
+      <details class="plangroup" style="background:var(--river);border-color:#345a6b;">
+        <summary style="color:#fff">Allies already doing this work</summary>
+        <div class="allylist" style="margin-top:10px">
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Virginia Outdoors Foundation</b> — conservation easements that keep land permanently out of development.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Piedmont Environmental Council</b> — regional advocacy against sprawl in this exact part of Virginia.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Land Trust of Virginia</b> — conservation easements and land preservation statewide.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Agrarian Trust</b> — protects farmland access through agricultural land trusts.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">National Young Farmers Coalition</b> — farmland affordability and access advocacy.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Housing Assistance Council</b> — rural-specific affordable housing expertise.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Appalachian Voices</b> — regional environmental and economic justice advocacy.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Appalachian Community Fund</b> — grassroots funding for community organizing.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Land Loss Prevention Project</b> — defends Black land ownership against loss and exploitation.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Institute for Justice</b> — public interest law firm litigating property rights cases.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Preservation Virginia</b> — statewide historic preservation advocacy and legal tools.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Institute for Local Self-Reliance</b> — policy research on local economic control.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">New Economy Coalition</b> — network supporting community-controlled economic alternatives.</div>
+          <div class="allyitem" style="color:var(--sand)"><b style="color:var(--rust-light)">Partnership for Southern Equity</b> — racial equity-focused regional policy advocacy.</div>
+        </div>
+      </details>
+
+      <details class="plangroup" style="background:var(--river);border-color:#345a6b;">
+        <summary style="color:#fff">Legal and procedural leverage</summary>
+        <dl>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Maximize review timelines</dt><dd style="color:var(--sand)">Use every legally available day, rather than rushing approvals through.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Strict stormwater & erosion control</dt><dd style="color:var(--sand)">Enforceable standards, especially relevant on this flood-prone land.</dd></div>
+          <div class="toolrow" style="border-color:rgba(245,240,232,.15)"><dt style="color:var(--rust-light)">Archaeological review requirements</dt><dd style="color:var(--sand)">Due diligence given centuries of settlement and a documented slave market on this ground.</dd></div>
+          <div class="toolrow" style="border-color:none"><dt style="color:var(--rust-light)">Appeal all variance requests</dt><dd style="color:var(--sand)">Contest every deviation from existing zoning, rather than letting exceptions pass by default. Best paired with a published "yes, if" standard, so it reads as principled review rather than blanket obstruction.</dd></div>
+        </dl>
+      </details>
+    </div>
+  </section>
+
+  <div class="closer">
+    <div class="wrap">
+      <p class="pullquote">Growth is coming to Scottsville whether the town shapes it or not. The only real question left is who it's for.</p>
+      <a href="https://www.facebook.com/groups/256896148939" class="cta">Join the conversation</a>
+    </div>
+  </div>
+
+  <section id="sources" class="alt" style="padding:40px 0">
+    <div class="wrap">
+      <h2 style="font-size:20px">Sources</h2>
+      <p class="srcnote" style="line-height:1.9">
+        U.S. Census Bureau, American Community Survey &amp; 2020 Census (via Census Reporter) ·
+        Desmond, <em>Evicted</em> (2016); Eviction Lab, Princeton University ·
+        Fullilove, <em>Root Shock</em> (2004) ·
+        Fischel, <em>The Homevoter Hypothesis</em> (Harvard University Press, 2001) ·
+        Housing Assistance Council, "They Paved Paradise: Gentrification in Rural Communities" (2005) ·
+        "Gentrification and Fear of Displacement," Journal of Racial and Ethnic Health Disparities (2025) ·
+        "Gentrification and mental health inequities: a scoping review," Social Science &amp; Medicine (2025) ·
+        "Redlining, gentrification, and Black American mental health," PMC (2025) ·
+        WVIR-TV (NBC29), C-VILLE Weekly, Daily Progress — West Village &amp; East Village reporting, 2022–2026 ·
+        Southern Development Homes, West Village community listings ·
+        Albemarle County Comprehensive Plan (AC44, Oct. 2025); Albemarle County Board of Supervisors public records ·
+        Albemarle County Office of Housing public notices (2023–2025) ·
+        UVA Press archival guide to Afro-Virginian manuscript collections; Scottsville Museum church history records ·
+        Wikipedia: Crozet, Virginia, cross-checked against Cvillepedia ·
+        Scottsville Documentation Project (scottsville.github.io)
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="sitefoot">
+  <div class="wrap">
+    Part of the <a href="index.html">Scottsville Documentation Project</a>
+  </div>
+</footer>
+
+<script>
+  const menuOpen = document.getElementById('menuOpen');
+  const menuClose = document.getElementById('menuClose');
+  const navpanel = document.getElementById('navpanel');
+  menuOpen.addEventListener('click', () => { navpanel.classList.add('open'); menuOpen.setAttribute('aria-expanded','true'); });
+  menuClose.addEventListener('click', () => { navpanel.classList.remove('open'); menuOpen.setAttribute('aria-expanded','false'); });
+  navpanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navpanel.classList.remove('open')));
+</script>
+
+</body>
+</html>
