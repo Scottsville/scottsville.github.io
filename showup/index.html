@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>We Show Up | Scottsville Fire Department Fundraiser</title>
+  <meta name="description" content="A limited community T-shirt fundraiser supporting the Scottsville Volunteer Fire Department.">
+  <meta property="og:title" content="We Show Up — Scottsville Fire Department Fundraiser">
+  <meta property="og:description" content="They show up for us. This is our turn to show up for them.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://scottsville.github.io/showup/">
+  <style>
+    :root {
+      --deep:#1a2e38;
+      --river:#2c4a5a;
+      --rust:#8b4a2a;
+      --rust-light:#c98a5e;
+      --moss:#4a6741;
+      --cream:#faf7f2;
+      --sand:#f5f0e8;
+      --line:#e8dfc8;
+      --ink:#1e1e1e;
+      --muted:#74695f;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      background:var(--cream);
+      color:var(--ink);
+      font-family:Georgia, "Times New Roman", serif;
+      line-height:1.72;
+    }
+    img { max-width:100%; display:block; }
+    a { color:var(--rust); }
+    .wrap { width:min(940px, calc(100% - 36px)); margin:auto; }
+    .topbar {
+      background:white;
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .wrap {
+      min-height:86px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:10px 0;
+    }
+    .topbar img { width:78px; height:78px; object-fit:contain; }
+    .brand {
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--deep);
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      font-size:.78rem;
+      line-height:1.35;
+    }
+    .brand strong { display:block; font-size:1rem; letter-spacing:.13em; }
+    .hero {
+      background:var(--deep);
+      color:white;
+      text-align:center;
+      padding:68px 18px 62px;
+    }
+    .eyebrow {
+      font-family:Arial, Helvetica, sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.17em;
+      color:var(--rust-light);
+      font-size:.8rem;
+      font-weight:700;
+    }
+    h1 {
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:clamp(3.3rem, 11vw, 7.2rem);
+      line-height:.9;
+      letter-spacing:-.05em;
+      margin:14px 0 22px;
+    }
+    .hero p {
+      max-width:720px;
+      margin:0 auto;
+      color:#eaf1f3;
+      font-size:clamp(1.12rem, 2.5vw, 1.38rem);
+    }
+    .button {
+      display:inline-block;
+      margin-top:28px;
+      padding:13px 20px;
+      border-radius:4px;
+      background:var(--rust);
+      color:white;
+      font-family:Arial, Helvetica, sans-serif;
+      font-weight:700;
+      text-decoration:none;
+    }
+    main { padding:56px 0 72px; }
+    section {
+      padding-bottom:48px;
+      margin-bottom:48px;
+      border-bottom:1px solid var(--line);
+    }
+    section:last-child { border-bottom:0; margin-bottom:0; }
+    h2 {
+      color:var(--deep);
+      font-size:clamp(2rem, 5vw, 3.2rem);
+      line-height:1.12;
+      margin:0 0 18px;
+    }
+    p { font-size:1.08rem; }
+    .opening::first-letter {
+      float:left;
+      color:var(--rust);
+      font-size:4.5rem;
+      line-height:.8;
+      padding:.12em .1em 0 0;
+    }
+    blockquote {
+      margin:38px 0;
+      padding:10px 0 10px 24px;
+      border-left:5px solid var(--rust);
+      color:var(--deep);
+      font-size:clamp(1.5rem, 3vw, 2.15rem);
+      line-height:1.35;
+      font-style:italic;
+    }
+    .facts {
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      margin-top:30px;
+    }
+    .fact {
+      background:white;
+      border:1px solid var(--line);
+      padding:19px;
+      font-size:.97rem;
+    }
+    .fact strong {
+      display:block;
+      color:var(--deep);
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:1.16rem;
+      margin-bottom:5px;
+    }
+    .art {
+      width:min(580px, 100%);
+      margin:34px auto;
+      padding:20px;
+      background:white;
+      border:1px solid var(--line);
+    }
+    .transparency {
+      background:var(--sand);
+      border:1px solid var(--line);
+      padding:26px;
+    }
+    .transparency strong { color:var(--deep); }
+    .small { color:var(--muted); font-size:.93rem; }
+    .closing {
+      text-align:center;
+      padding:8px 0 4px;
+    }
+    .closing p { max-width:690px; margin-left:auto; margin-right:auto; }
+    footer {
+      background:var(--deep);
+      color:#dce7ea;
+      padding:38px 18px;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:.92rem;
+    }
+    footer a { color:#efbc99; }
+    @media (max-width:700px) {
+      .facts { grid-template-columns:1fr; }
+      .topbar img { width:64px; height:64px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <img src="images/scottsville-project-logo.webp" alt="The Scottsville Project logo">
+      <div class="brand">
+        <strong>The Scottsville Project</strong>
+        Community Fundraiser
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Supporting the Scottsville Volunteer Fire Department</div>
+      <h1>WE SHOW UP.</h1>
+      <p>They leave the dinner table, the warmth of home and the safety of ordinary life when a neighbor calls. This is our turn to answer them.</p>
+      <a class="button" href="https://thehorseshoebend.myshopify.com/">Visit the fundraiser store</a>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section>
+      <h2>A town is held together by the people who answer.</h2>
+
+      <p class="opening">Long before this place carried the name Scottsville—or Scott's Landing before it—it was being built by people who understood that a town survives through the small and often unrecorded ways neighbors keep one another standing. Someone brought a meal. Someone crossed a flooded road. Someone noticed that a porch light had not come on and went to look.</p>
+
+      <p>That old obligation to one another still has a visible form here. It is the volunteer who leaves the table when the call comes, steps out into the rain and drives toward whatever everyone else is trying to escape. Whether the call comes from an old house trailer or a three-million-dollar home, whether the person waiting is rich or poor, Black or white, familiar or unknown, the answer is the same: they show up.</p>
+
+      <blockquote>They do not first ask what a life is worth. They go.</blockquote>
+
+      <p>The Scottsville Volunteer Fire Department is an all-volunteer department with more than fifty trained members. It serves approximately 300 square miles and more than 10,000 residents, principally in southern Albemarle County, with first-due areas extending into Buckingham, Fluvanna and Nelson counties.</p>
+
+      <div class="facts">
+        <div class="fact"><strong>All volunteer</strong>Neighbors answering calls for neighbors.</div>
+        <div class="fact"><strong>About 300 square miles</strong>A wide rural territory along and beyond the James River.</div>
+        <div class="fact"><strong>More than 10,000 residents</strong>Thousands of people depend on their readiness.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why the shirts?</h2>
+
+      <p>This limited fundraiser is a way for the rest of us to answer in return. A shirt cannot repay a sleepless night, a ruined holiday or the danger accepted on behalf of a stranger. But it can say, plainly and publicly, that the work has been seen. It can place a little more money behind the equipment, training and readiness that protect this community. And it can remind us that <strong>“We Show Up”</strong> is not only what the department does. It is the standard by which a small town remains a community.</p>
+
+      <div class="art">
+        <img src="images/horseshoe-bend.webp" alt="The Horseshoe Bend Scottsville design offered in the fundraiser">
+      </div>
+
+      <p>Maybe this effort raises ten dollars. Maybe one hundred. Maybe one thousand. The size of the final check matters, but it is not the whole meaning of the effort. The greater hope is that the department sees a town willing to pause, look back toward those who have always answered, and answer them together.</p>
+    </section>
+
+    <section>
+      <h2>Where the money goes</h2>
+
+      <div class="transparency">
+        <p>The shirts are printed to order through Printify and sold through Shopify. That creates a clear record of each order and the direct costs attached to it.</p>
+
+        <p><strong>All remaining proceeds after production costs, Shopify and payment-processing fees, refunds or chargebacks, and applicable taxes will be donated to the Scottsville Volunteer Fire Department.</strong></p>
+
+        <p>No organizer's wage, personal labor charge or management fee will be deducted. When the fundraiser ends, I will publish the number of items sold, gross sales, direct expenses, any taxes retained or paid on the fundraiser income, and the final donation amount.</p>
+
+        <p class="small">This fundraiser is being conducted by an individual. Purchasing a shirt is a retail transaction and should not be treated by the buyer as a tax-deductible charitable contribution. Final tax treatment will be handled in consultation with a qualified tax professional.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Order and fulfillment</h2>
+
+      <p>Orders are generally produced and delivered in roughly one week. Because printing, fulfillment and shipping are handled through Printify and Shopify, cancellations, returns and size concerns must be submitted through the store's normal support process.</p>
+
+      <p>The unisex shirt is a sturdy, heavyweight cotton tee with room to move—and sleeves long enough to wipe the sweat from your forehead after a long day. The women's fitted version has a closer cut and reportedly runs snug, so sizing up is sensible for a more relaxed fit.</p>
+
+      <div class="closing">
+        <a class="button" href="https://thehorseshoebend.myshopify.com/">Visit The Horseshoe Bend store</a>
+        <p>One shirt. One thank-you. Many hands showing up for those who have always shown up for us.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>Scottsville Volunteer Fire Department</strong><br>
+      141 Irish Road · P.O. Box 381 · Scottsville, VA 24590<br>
+      Non-emergency: 434-286-2841 · Emergency: 911<br><br>
+      Department information: <a href="https://www.scottsvillefire.org/">scottsvillefire.org</a>
+    </div>
+  </footer>
+</body>
+</html>
